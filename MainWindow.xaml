@@ -5,8 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cycubeat"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Cycubeat" Width="1366" Height="768" MaxWidth="1366" MaxHeight="768" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <Grid.Background>
+            <ImageBrush ImageSource="Materials/Background.jpg"/>
+        </Grid.Background>
+        <Button Name="Button_Mod" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Content="模組" Click="Button_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="/AirBand;component/Resources/Mod.png"/>
+            </Button.Background>
+            <Button.RenderTransform>
+                <TranslateTransform Y="500"/>
+            </Button.RenderTransform>
+        </Button>
     </Grid>
 </Window>
