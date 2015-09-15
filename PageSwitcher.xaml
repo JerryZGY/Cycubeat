@@ -5,4 +5,4 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cycubeat"
         mc:Ignorable="d"
-        Title="Cycubeat" Width="1366" Height="768" MaxWidth="1366" MaxHeight="768" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Background="Black"/>
+        Title="Cycubeat" Width="1366" Height="768" MaxWidth="1366" MaxHeight="768" ResizeMode="NoResize" WindowStyle="None" WindowState="Maximized" Background="Black"/>

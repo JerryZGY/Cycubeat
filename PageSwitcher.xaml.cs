@@ -9,6 +9,8 @@ namespace Cycubeat
         public PageSwitcher()
         {
             InitializeComponent();
+            Switcher.pageSwitcher = this;
+            Switcher.Switch("MainMenu");
         }
 
         public void Navigate(UserControl nextPage)
