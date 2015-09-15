@@ -7,8 +7,12 @@ using System.Windows.Shapes;
 
 namespace Cycubeat.Controls
 {
+    
+
     public partial class StartControl : UserControl
     {
+        public event NotifyDelegate NotifyEvent;
+
         private double resWidth = SystemParameters.FullPrimaryScreenWidth;
 
         private double resHeight = SystemParameters.FullPrimaryScreenHeight;
@@ -46,11 +50,34 @@ namespace Cycubeat.Controls
             InitializeComponent();
         }
 
+        private void StartControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Opacity = 0;
+            cnv_Title.Width = resWidth;
+            cnv_Title.Height = resHeight;
+            initRect();
+            DoubleAnimation fadeIn = new DoubleAnimation()
+            {
+                From = 0,
+                To = 1,
+                Duration = TimeSpan.FromSeconds(1),
+                EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut }
+            };
+            fadeIn.Completed += (s, ev) =>
+            {
+                initControlsStory();
+                initBackgroundStory();
+            };
+            BeginAnimation(OpacityProperty, fadeIn);
+        }
+
         private void initRect()
         {
             for (int i = 0; i < rectangles.Length; i++)
             {
                 rectangles[i] = new Rectangle();
+                rectangles[i].HorizontalAlignment = HorizontalAlignment.Center;
+                rectangles[i].VerticalAlignment = VerticalAlignment.Center;
                 rectangles[i].Opacity = 0;
                 rectangles[i].Fill = (SolidColorBrush)(new BrushConverter().ConvertFromString(colorsMap[i]));
                 rectangles[i].Width = rectangles[i].Height = size * scaleMap[i];
@@ -65,7 +92,33 @@ namespace Cycubeat.Controls
             Canvas.SetTop(element, (resHeight - element.Height) / 2 + offsetY);
         }
 
-        private void startStory()
+        private void initBackgroundStory()
+        {
+            DoubleAnimation fadeIn = new DoubleAnimation()
+            {
+                From = 1,
+                To = 0.5,
+                AutoReverse = true,
+                Duration = TimeSpan.FromSeconds(8),
+                RepeatBehavior = RepeatBehavior.Forever,
+                EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseInOut }
+            };
+            Img_Background.BeginAnimation(OpacityProperty, fadeIn);
+
+            DoubleAnimation scale = new DoubleAnimation()
+            {
+                From = 1,
+                To = 1.2,
+                AutoReverse = true,
+                Duration = TimeSpan.FromSeconds(10),
+                RepeatBehavior = RepeatBehavior.Forever,
+                EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseInOut }
+            };
+            Img_Background.RenderTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scale);
+            Img_Background.RenderTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scale);
+        }
+
+        private void initControlsStory()
         {
             DoubleAnimation fadeIn = new DoubleAnimation()
             {
@@ -111,9 +164,9 @@ namespace Cycubeat.Controls
                 From = 1,
                 To = 1.2,
                 Duration = TimeSpan.FromSeconds(.5),
-                EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut }
+                EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut },
+                BeginTime = TimeSpan.FromSeconds(3)
             };
-            scaleEffect.BeginTime = TimeSpan.FromSeconds(3);
             Img_TitleEffect.RenderTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleEffect);
             Img_TitleEffect.RenderTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleEffect);
             DoubleAnimation fadeOutEffect = new DoubleAnimation()
@@ -122,8 +175,8 @@ namespace Cycubeat.Controls
                 To = 0,
                 Duration = TimeSpan.FromSeconds(2),
                 EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut },
+                BeginTime = TimeSpan.FromSeconds(3.5)
             };
-            fadeOutEffect.BeginTime = TimeSpan.FromSeconds(3.5);
             Img_TitleEffect.BeginAnimation(OpacityProperty, fadeOutEffect);
             fadeIn.BeginTime = TimeSpan.FromSeconds(4);
             Tbx_Copyright.BeginAnimation(OpacityProperty, fadeIn);
@@ -133,20 +186,40 @@ namespace Cycubeat.Controls
                 To = 0.4,
                 Duration = TimeSpan.FromSeconds(.5),
                 AutoReverse = true,
-                RepeatBehavior = RepeatBehavior.Forever
+                RepeatBehavior = RepeatBehavior.Forever,
+                BeginTime = TimeSpan.FromSeconds(5.5)
             };
-            shine.BeginTime = TimeSpan.FromSeconds(5.5);
             Img_TitleShine.BeginAnimation(OpacityProperty, shine);
         }
 
-        private void StartControl_Loaded(object sender, RoutedEventArgs e)
+        public void Start()
         {
-            Storyboard storyBoard = ((Storyboard)this.Resources["BackgroundEffect"]);
-            storyBoard.Begin();
-            cnv_Title.Width = resWidth;
-            cnv_Title.Height = resHeight;
-            initRect();
-            startStory();
+            DoubleAnimation fadeOutFore = new DoubleAnimation()
+            {
+                To = 0,
+                Duration = TimeSpan.FromSeconds(1),
+                EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut }
+            };
+            Grid_Foreground.BeginAnimation(OpacityProperty, fadeOutFore);
+
+            DoubleAnimation scale = new DoubleAnimation()
+            {
+                To = 10,
+                Duration = TimeSpan.FromSeconds(2),
+                EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseIn }
+            };
+            Img_Background.RenderTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scale);
+            Img_Background.RenderTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scale);
+
+            DoubleAnimation fadeOut = new DoubleAnimation()
+            {
+                To = 0,
+                Duration = TimeSpan.FromSeconds(2),
+                EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseIn }
+            };
+            BeginAnimation(OpacityProperty, fadeOut);
+            fadeOut.Completed += (s, e) => NotifyEvent();
+            BeginAnimation(OpacityProperty, fadeOut);
         }
     }
 }

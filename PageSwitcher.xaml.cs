@@ -4,6 +4,8 @@ using System.Windows.Controls;
 
 namespace Cycubeat
 {
+    public delegate void NotifyDelegate();
+
     public partial class PageSwitcher : Window
     {
         public PageSwitcher()
