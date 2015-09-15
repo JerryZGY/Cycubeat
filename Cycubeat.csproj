@@ -60,6 +60,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Common\ISwitchable.cs" />
+    <Page Include="Controls\StartControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PageSwitcher.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -68,9 +72,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Resources\Common.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Switcher.cs" />
+    <Compile Include="Controls\StartControl.xaml.cs">
+      <DependentUpon>StartControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PageSwitcher.xaml.cs">
       <DependentUpon>PageSwitcher.xaml</DependentUpon>
     </Compile>
@@ -106,12 +117,8 @@
   <ItemGroup>
     <Resource Include="Materials\Background.jpg" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Resource Include="Materials\Logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Materials\Start.png" />
+    <Resource Include="Materials\Title.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

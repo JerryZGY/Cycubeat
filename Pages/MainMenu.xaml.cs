@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using System.Windows.Media.Animation;
 
 namespace Cycubeat.Pages
 {
@@ -7,6 +8,11 @@ namespace Cycubeat.Pages
         public MainMenu()
         {
             InitializeComponent();
+        }
+
+        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+
         }
     }
 }

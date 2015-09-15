@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="Cycubeat.Controls.StartControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Cycubeat.Controls"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignWidth="1920" d:DesignHeight="1080" Loaded="StartControl_Loaded">
+    <UserControl.Resources>
+        <Storyboard x:Key="BackgroundEffect">
+            <DoubleAnimation Storyboard.TargetName="Img_Background" Storyboard.TargetProperty="Opacity" From="0.5" To="1" AutoReverse="True" RepeatBehavior="Forever" Duration="0:0:8">
+                <DoubleAnimation.EasingFunction>
+                    <QuadraticEase EasingMode="EaseInOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="Img_Background" Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)" From="1" To="1.2" AutoReverse="True" RepeatBehavior="Forever" Duration="0:0:10">
+                <DoubleAnimation.EasingFunction>
+                    <QuadraticEase EasingMode="EaseInOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="Img_Background" Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)" From="1" To="1.2" AutoReverse="True" RepeatBehavior="Forever" Duration="0:0:10">
+                <DoubleAnimation.EasingFunction>
+                    <QuadraticEase EasingMode="EaseInOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+    </UserControl.Resources>
+    <Grid>
+        <Image Name="Img_Background" Source="/Cycubeat;component/Materials/Background.jpg" RenderTransformOrigin=".5 .5">
+            <Image.RenderTransform>
+                <ScaleTransform/>
+            </Image.RenderTransform>
+        </Image>
+        <Canvas Name="cnv_Title" RenderTransformOrigin=".5 .5">
+            <Canvas.RenderTransform>
+                <RotateTransform/>
+            </Canvas.RenderTransform>
+        </Canvas>
+        <Image Name="Img_Title" Source="/Cycubeat;component/Materials/Title.png" Width="518" Height="216" Opacity="0"/>
+        <Image Name="Img_TitleEffect" Source="/Cycubeat;component/Materials/Title.png" Width="518" Height="216" Opacity="0" RenderTransformOrigin=".5 .5">
+            <Image.Effect>
+                <BlurEffect Radius="5"/>
+            </Image.Effect>
+            <Image.RenderTransform>
+                <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+            </Image.RenderTransform>
+        </Image>
+        <Image Name="Img_TitleShine" Source="/Cycubeat;component/Materials/Title.png" Width="518" Height="216" Opacity="0">
+            <Image.Effect>
+                <DropShadowEffect BlurRadius="0" Color="White" Direction="90"/>
+            </Image.Effect>
+        </Image>
+        <TextBlock Name="Tbx_Copyright" Text="© 2015 JerryZ CYIM" FontSize="16" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontFamily="Nirmala UI" Opacity="0"/>
+    </Grid>
+</UserControl>

@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:Cycubeat"
              StartupUri="PageSwitcher.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary Source="/Resources/Common.xaml"/>
     </Application.Resources>
 </Application>
