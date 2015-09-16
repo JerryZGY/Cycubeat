@@ -6,18 +6,10 @@
              mc:Ignorable="d" 
              d:DesignWidth="1920" d:DesignHeight="1080" Loaded="StartControl_Loaded">
     <Grid>
-        <Image Name="Img_Background" Source="/Cycubeat;component/Materials/Background.jpg" RenderTransformOrigin=".5 .5">
-            <Image.RenderTransform>
-                <ScaleTransform/>
-            </Image.RenderTransform>
-        </Image>
+        <Image Name="Img_Background" Source="/Cycubeat;component/Materials/StartBackground.jpg"/>
         <Grid Name="Grid_Foreground">
-            <Canvas Name="cnv_Title" RenderTransformOrigin=".5 .5">
-                <Canvas.RenderTransform>
-                    <RotateTransform/>
-                </Canvas.RenderTransform>
-            </Canvas>
-            <Image Name="Img_Title" Source="/Cycubeat;component/Materials/Title.png" Width="518" Height="216" Opacity="0"/>
+            <Canvas Name="cnv_Title"/>
+            <Image Name="Img_Title" Source="/Cycubeat;component/Materials/Title.png" Width="518" Height="216"/>
             <Image Name="Img_TitleEffect" Source="/Cycubeat;component/Materials/Title.png" Width="518" Height="216" Opacity="0" RenderTransformOrigin=".5 .5">
                 <Image.Effect>
                     <BlurEffect Radius="5"/>
@@ -31,7 +23,7 @@
                     <DropShadowEffect BlurRadius="0" Color="White" Direction="90"/>
                 </Image.Effect>
             </Image>
-            <TextBlock Name="Tbx_Copyright" Text="© 2015 JerryZ CYIM 24th" FontSize="16" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontFamily="Nirmala UI" Opacity="0"/>
+            <TextBlock Name="Tbx_Copyright" Text="© 2015 JerryZ CYIM 24th" FontSize="16" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontFamily="Nirmala UI"/>
         </Grid>
     </Grid>
 </UserControl>

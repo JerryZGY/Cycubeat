@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -60,6 +61,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Common\ISwitchable.cs" />
+    <Page Include="Controls\PlayControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\StartControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -76,9 +81,16 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\Playing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Switcher.cs" />
+    <Compile Include="Controls\PlayControl.xaml.cs">
+      <DependentUpon>PlayControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\StartControl.xaml.cs">
       <DependentUpon>StartControl.xaml</DependentUpon>
     </Compile>
@@ -115,10 +127,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Materials\Background.jpg" />
+    <Resource Include="Materials\Title.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Materials\Title.png" />
+    <Resource Include="Materials\PlayBackground.jpg" />
+    <Resource Include="Materials\StartBackground.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Materials\Choose.png" />
+    <Resource Include="Materials\Difficulty.png" />
+    <Resource Include="Materials\Highest.png" />
+    <Resource Include="Materials\Score.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

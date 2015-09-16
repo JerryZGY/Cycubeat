@@ -7,15 +7,13 @@ using System.Windows.Shapes;
 
 namespace Cycubeat.Controls
 {
-    
-
     public partial class StartControl : UserControl
     {
         public event NotifyDelegate NotifyEvent;
 
-        private double resWidth = SystemParameters.FullPrimaryScreenWidth;
+        private double resWidth = SystemParameters.PrimaryScreenWidth;
 
-        private double resHeight = SystemParameters.FullPrimaryScreenHeight;
+        private double resHeight = SystemParameters.PrimaryScreenHeight;
 
         private const double size = 100;
 
@@ -52,23 +50,22 @@ namespace Cycubeat.Controls
 
         private void StartControl_Loaded(object sender, RoutedEventArgs e)
         {
+            initOriginProperty();
+            initRect();
+            initEnterStory();
+        }
+
+        private void initOriginProperty()
+        {
             Opacity = 0;
             cnv_Title.Width = resWidth;
             cnv_Title.Height = resHeight;
-            initRect();
-            DoubleAnimation fadeIn = new DoubleAnimation()
-            {
-                From = 0,
-                To = 1,
-                Duration = TimeSpan.FromSeconds(1),
-                EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut }
-            };
-            fadeIn.Completed += (s, ev) =>
-            {
-                initControlsStory();
-                initBackgroundStory();
-            };
-            BeginAnimation(OpacityProperty, fadeIn);
+            cnv_Title.RenderTransformOrigin = new Point(.5, .5);
+            cnv_Title.RenderTransform = new RotateTransform();
+            Img_Background.RenderTransformOrigin = new Point(.5, .5);
+            Img_Background.RenderTransform = new ScaleTransform();
+            Img_Title.Opacity = 0;
+            Tbx_Copyright.Opacity = 0;
         }
 
         private void initRect()
@@ -76,20 +73,30 @@ namespace Cycubeat.Controls
             for (int i = 0; i < rectangles.Length; i++)
             {
                 rectangles[i] = new Rectangle();
-                rectangles[i].HorizontalAlignment = HorizontalAlignment.Center;
-                rectangles[i].VerticalAlignment = VerticalAlignment.Center;
                 rectangles[i].Opacity = 0;
                 rectangles[i].Fill = (SolidColorBrush)(new BrushConverter().ConvertFromString(colorsMap[i]));
                 rectangles[i].Width = rectangles[i].Height = size * scaleMap[i];
-                setRectPosition(rectangles[i], offsetMap[i].X, offsetMap[i].Y);
+                Canvas.SetLeft(rectangles[i], (resWidth - rectangles[i].Width) / 2 + offsetMap[i].X);
+                Canvas.SetTop(rectangles[i], (resHeight - rectangles[i].Height) / 2 + offsetMap[i].Y);
                 cnv_Title.Children.Add(rectangles[i]);
             }
         }
 
-        private void setRectPosition(Rectangle element, double offsetX, double offsetY)
+        private void initEnterStory()
         {
-            Canvas.SetLeft(element, (resWidth - element.Width) / 2 + offsetX);
-            Canvas.SetTop(element, (resHeight - element.Height) / 2 + offsetY);
+            DoubleAnimation fadeIn = new DoubleAnimation()
+            {
+                To = 1,
+                Duration = TimeSpan.FromSeconds(1),
+                EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut }
+            };
+
+            fadeIn.Completed += (s, ev) =>
+            {
+                initControlsStory();
+                initBackgroundStory();
+            };
+            BeginAnimation(OpacityProperty, fadeIn);
         }
 
         private void initBackgroundStory()
@@ -155,7 +162,7 @@ namespace Cycubeat.Controls
                 From = 0,
                 To = 0.5,
                 Duration = TimeSpan.FromSeconds(.5),
-                EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut },
+                EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut }
             };
             fadeInEffect.BeginTime = TimeSpan.FromSeconds(3);
             Img_TitleEffect.BeginAnimation(OpacityProperty, fadeInEffect);
@@ -217,7 +224,6 @@ namespace Cycubeat.Controls
                 Duration = TimeSpan.FromSeconds(2),
                 EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseIn }
             };
-            BeginAnimation(OpacityProperty, fadeOut);
             fadeOut.Completed += (s, e) => NotifyEvent();
             BeginAnimation(OpacityProperty, fadeOut);
         }

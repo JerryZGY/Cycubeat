@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="Cycubeat.Controls.PlayControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignWidth="1920" d:DesignHeight="1080" Loaded="PlayControl_Loaded">
+    <UserControl.Resources>
+        <ResourceDictionary Source="../Resources/Playing.xaml"/>
+    </UserControl.Resources>
+    <Grid>
+        <Image Name="Img_Background" Source="/Cycubeat;component/Materials/PlayBackground.jpg"/>
+        <Image Name="Img_BackgroundShine" Source="/Cycubeat;component/Materials/PlayBackground.jpg" Opacity="0"/>
+            <Grid Name="Grid_Foreground">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2.8*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Canvas Name="Cnv_Main" Grid.ColumnSpan="3">
+                <Button Width="250" Height="250" Background="Black" Opacity=".5" Canvas.Left="500" Canvas.Top="80"/>
+                <Button Width="250" Height="250" Background="Black" Opacity=".5" Canvas.Left="835" Canvas.Top="80"/>
+                <Button Width="250" Height="250" Background="Black" Opacity=".5" Canvas.Left="1170" Canvas.Top="80"/>
+
+                <Button Width="250" Height="250" Background="Black" Opacity=".5" Canvas.Left="500" Canvas.Top="415"/>
+                <Button Width="250" Height="250" Background="Black" Opacity=".5" Canvas.Left="835" Canvas.Top="415"/>
+                <Button Width="250" Height="250" Background="Black" Opacity=".5" Canvas.Left="1170" Canvas.Top="415"/>
+
+                <Button Width="250" Height="250" Background="Black" Opacity=".5" Canvas.Left="500" Canvas.Top="750"/>
+                <Button Width="250" Height="250" Background="Black" Opacity=".5" Canvas.Left="835" Canvas.Top="750"/>
+                <Button Width="250" Height="250" Background="Black" Opacity=".5" Canvas.Left="1170" Canvas.Top="750"/>
+            </Canvas>
+            <Grid Grid.Column="0" Name="Grid_Left" Background="#7F000000">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Image Grid.Row="0" Name="Img_Choose" Style="{StaticResource ResourceKey=Img_LeftTop}" Source="/Cycubeat;component/Materials/Choose.png"/>
+                <Image Grid.Row="0" Name="Img_Difficulty" Style="{StaticResource ResourceKey=Img_LeftBottom}" Source="/Cycubeat;component/Materials/Difficulty.png"/>
+                <TextBlock Grid.Row="1" Name="Tbx_Difficulty" Style="{StaticResource ResourceKey=Tbx_Left}" Text="Easy" FontFamily="Viner Hand ITC"/>
+                <Image Grid.Row="2" Name="Img_Highest" Style="{StaticResource ResourceKey=Img_LeftTop}" Source="/Cycubeat;component/Materials/Highest.png"/>
+                <Image Grid.Row="2" Name="Img_Score" Style="{StaticResource ResourceKey=Img_LeftBottom}" Source="/Cycubeat;component/Materials/Score.png"/>
+                <TextBlock Grid.Row="3" Name="Tbx_Score" Style="{StaticResource ResourceKey=Tbx_Left}" Text="0000000" FontFamily="Vivaldi"/>
+            </Grid>
+            <Grid Grid.Column="2" Name="Grid_Right" Background="#7F000000">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Image Grid.Row="0" Name="Img_UserView" Stretch="UniformToFill"/>
+                <Button Grid.Row="1" Name="Btn_Extra" Width="250" Height="250" Background="Black" Opacity=".5"/>
+                <TextBlock Grid.Row="2" Name="Tbx_Timer" Style="{StaticResource ResourceKey=Tbx_Right}" Text="30"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

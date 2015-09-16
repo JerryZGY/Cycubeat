@@ -10,24 +10,33 @@ namespace Cycubeat.Pages
             InitializeComponent();
         }
 
-        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        private void MainMenu_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-
+            enterMainMenu();
         }
 
-        private void StartGame()
+        private void enterPlaying()
         {
-            Grid_Main.Children.Remove(Ctrl_Start);
-            Ctrl_Start = new StartControl();
-            Grid_Main.Children.Insert(0, Ctrl_Start);
+            Ctrl.Content = new PlayControl();
+            var Ctrl_Start = Ctrl.Content as PlayControl;
+            Ctrl_Start.NotifyEvent += new NotifyDelegate(enterMainMenu);
+        }
+
+        private void enterMainMenu()
+        {
+            Ctrl.Content = new StartControl();
             Btn_Start.IsHitTestVisible = true;
         }
 
         private void Btn_Start_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             Btn_Start.IsHitTestVisible = false;
-            Ctrl_Start.Start();
-            Ctrl_Start.NotifyEvent += new NotifyDelegate(StartGame);
+            var Ctrl_Start = Ctrl.Content as StartControl;
+            if (Ctrl_Start != null)
+            {
+                Ctrl_Start.Start();
+                Ctrl_Start.NotifyEvent += new NotifyDelegate(enterPlaying);
+            }
         }
     }
 }
