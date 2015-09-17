@@ -6,6 +6,8 @@ namespace Cycubeat
 {
     public delegate void NotifyDelegate();
 
+    public delegate void ScoreEventHandler(int score);
+
     public partial class PageSwitcher : Window
     {
         public PageSwitcher()

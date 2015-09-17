@@ -25,7 +25,7 @@ namespace Cycubeat.Controls
 
         private const double distance = 50;
 
-        private Rectangle[] rectangles = new Rectangle[9];
+        private TouchControl[] touchers = new TouchControl[9];
 
         private static string[] fontColorsMap = { "#FF86FF86", "#FFFFFF00", "#FFFF5D5D" };
 
@@ -37,7 +37,6 @@ namespace Cycubeat.Controls
         private void PlayControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             initOriginProperty();
-            initRect();
             initEnterStory();
         }
 
@@ -53,31 +52,63 @@ namespace Cycubeat.Controls
             Grid_Left.RenderTransform = new TranslateTransform(-450, 0);
             Grid_Right.RenderTransform = new TranslateTransform(450, 0);
             Img_Choose.Opacity = 0;
+            Img_Choose.Width = resWidth / 7;
             Img_Difficulty.Opacity = 0;
+            Img_Difficulty.Width = resWidth / 7;
             Img_Highest.Opacity = 0;
+            Img_Highest.Width = resWidth / 7;
             Img_Score.Opacity = 0;
+            Img_Score.Width = resWidth / 7;
             Tbx_Difficulty.Opacity = 0;
+            Tbx_Difficulty.FontSize = resWidth / 22;
             Tbx_Score.Opacity = 0;
+            Tbx_Score.FontSize = resWidth / 22;
             Img_BackgroundShine.RenderTransformOrigin = new Point(.5, .5);
             Img_BackgroundShine.RenderTransform = new ScaleTransform();
             Img_UserView.Opacity = 0;
             Btn_Extra.Opacity = 0;
             Tbx_Timer.Opacity = 0;
+            Tbx_Timer.FontSize = resWidth / 18;
             Tbx_Timer.Text = idleCountdownTimes.ToString();
             idleCountdownTimer.Tick += idleCountdownTimer_Tick;
         }
 
         private void initRect()
-        {
-            //for (int i = 0; i < rectangles.Length; i++)
-            //{
-            //    rectangles[i] = new Rectangle();
-            //    rectangles[i].Opacity = 0;
-            //    rectangles[i].Fill = (SolidColorBrush)(new BrushConverter().ConvertFromString(colorsMap[i]));
-            //    rectangles[i].Width = rectangles[i].Height = size * scaleMap[i];
-            //    setRectPosition(rectangles[i], offsetMap[i].X, offsetMap[i].Y);
-            //    cnv_Title.Children.Add(rectangles[i]);
-            //}
+        {//touchers.Length
+            for (int i = 0; i < touchers.Length; i++)
+            {
+                touchers[i] = new TouchControl(TimeSpan.FromSeconds(i * 0.1));
+                touchers[i].ScoreEvent += new ScoreEventHandler(updateScore);
+                var x = i % 3;
+                var intervalX = resWidth / 19.2;
+                var intervalY = resHeight / 10.8;
+                switch (x)
+                {
+                    case 0:
+                        Canvas.SetLeft(touchers[i], (resWidth - touchers[i].Width) / 2 - (touchers[i].Width + intervalX));
+                        break;
+                    case 1:
+                        Canvas.SetLeft(touchers[i], (resWidth - touchers[i].Width) / 2);
+
+                        break;
+                    case 2:
+                        Canvas.SetLeft(touchers[i], (resWidth - touchers[i].Width) / 2 + (touchers[i].Width + intervalX));
+                        break;
+                }
+                if (i < 3)
+                {
+                    Canvas.SetTop(touchers[i], (resHeight - touchers[i].Height) / 2 - (touchers[i].Height + intervalY));
+                }
+                else if (i < 6)
+                {
+                    Canvas.SetTop(touchers[i], (resHeight - touchers[i].Height) / 2);
+                }
+                else
+                {
+                    Canvas.SetTop(touchers[i], (resHeight - touchers[i].Height) / 2 + (touchers[i].Height + intervalY));
+                }
+                Cnv_Main.Children.Add(touchers[i]);
+            }
         }
 
         private void initEnterStory()
@@ -109,6 +140,7 @@ namespace Cycubeat.Controls
                 translate.Completed += (se, ev) =>
                 {
                     initBackgroundStory();
+                    initRect();
                     DoubleAnimation innerFadeIn = new DoubleAnimation()
                     {
                         To = 1,
@@ -165,7 +197,6 @@ namespace Cycubeat.Controls
 
         private void InnerFadeIn_Completed(object sender, EventArgs e)
         {
-            
             idleCountdownTimer.Start();
         }
 
@@ -214,6 +245,11 @@ namespace Cycubeat.Controls
             };
             fadeOut.Completed += (s, e) => NotifyEvent();
             BeginAnimation(OpacityProperty, fadeOut);
+        }
+
+        private void updateScore(int score)
+        {
+            Tbx_Score.Text = string.Format("{0:0000000}", score);
         }
     }
 }
