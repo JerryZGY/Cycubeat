@@ -8,7 +8,6 @@ namespace Cycubeat.Controls
 {
     public partial class TouchControl : UserControl
     {
-
         public event ScoreEventHandler ScoreEvent;
 
         private System.Windows.Forms.Timer touchTimer = new System.Windows.Forms.Timer() { Interval = 2000 };
@@ -29,7 +28,7 @@ namespace Cycubeat.Controls
             initStory();
         }
 
-        public void initOriginProperty()
+        private void initOriginProperty()
         {
             Opacity = 0;
             Tbx_Touch.Opacity = 0;
@@ -55,6 +54,7 @@ namespace Cycubeat.Controls
             Eps_Effect.RenderTransformOrigin = new Point(.5, .5);
             Eps_Effect.RenderTransform = new ScaleTransform(0, 0);
             Eps_Effect.BeginAnimation(OpacityProperty, start);
+            Eps_Effect.Fill = new SolidColorBrush(Colors.Red);
             Eps_Effect.RenderTransform.BeginAnimation(ScaleTransform.ScaleXProperty, start);
             start.Completed += (s, e) => touchTimer.Start();
             Eps_Effect.RenderTransform.BeginAnimation(ScaleTransform.ScaleYProperty, start);
@@ -114,14 +114,39 @@ namespace Cycubeat.Controls
                 EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut },
                 AutoReverse = true
             };
+            ColorAnimation perfectColor = new ColorAnimation()
+            {
+                From = Colors.Red,
+                To = Colors.Orange,
+                Duration = TimeSpan.FromSeconds(.3),
+                EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut },
+                AutoReverse = true
+            };
+            ColorAnimation normalColor = new ColorAnimation()
+            {
+                From = Colors.Red,
+                To = Colors.Blue,
+                Duration = TimeSpan.FromSeconds(.3),
+                EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut },
+                AutoReverse = true
+            };
             Eps_Effect.Opacity = 0;
             Eps_Effect.RenderTransformOrigin = new Point(.5, .5);
             Eps_Effect.RenderTransform = new ScaleTransform();
             Eps_Effect.BeginAnimation(OpacityProperty, start);
             Eps_Effect.RenderTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scale);
             Eps_Effect.RenderTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scale);
+            if (isPerfect)
+            {
+                Eps_Effect.Fill.BeginAnimation(SolidColorBrush.ColorProperty, perfectColor);
+                Tbx_Touch.Text = "Perfect";
+            }
+            else
+            {
+                Eps_Effect.Fill.BeginAnimation(SolidColorBrush.ColorProperty, normalColor);
+                Tbx_Touch.Text = "";
+            }
             Tbx_Touch.Opacity = 0;
-            Tbx_Touch.Text = (isPerfect) ? "Perfect" : "";
             Tbx_Touch.RenderTransformOrigin = new Point(.5, .5);
             Tbx_Touch.RenderTransform = new ScaleTransform();
             Tbx_Touch.BeginAnimation(OpacityProperty, start);
@@ -144,7 +169,7 @@ namespace Cycubeat.Controls
         private void Btn_Toucher_Click(object sender, RoutedEventArgs e)
         {
             touch();
-            ScoreEvent((isPerfect) ? 1000 : 500);
+            ScoreEvent((isPerfect) ? 2000 : 1000);
         }
     }
 }

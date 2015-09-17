@@ -23,6 +23,10 @@
         <Setter Property="Width" Value="300"/>
         <Setter Property="Margin" Value="0 0 10 10"/>
     </Style>
+    <Style x:Key="Ctrl_Score" TargetType="{x:Type Control}">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
     <Style x:Key="Tbx_Right" TargetType="{x:Type TextBlock}">
         <Setter Property="TextWrapping" Value="NoWrap"/>
         <Setter Property="TextTrimming" Value="None"/>

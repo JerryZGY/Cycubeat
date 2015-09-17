@@ -8,6 +8,10 @@ namespace Cycubeat
 
     public delegate void ScoreEventHandler(int score);
 
+    public delegate void DifficultyEventHandler(int difficulty);
+
+    public delegate void DifficultyExitDelegate();
+
     public partial class PageSwitcher : Window
     {
         public PageSwitcher()

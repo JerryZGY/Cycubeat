@@ -65,7 +65,19 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Common\ISwitchable.cs" />
+    <Page Include="Controls\DifficultyControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MusicControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\PlayControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ScoreControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -96,8 +108,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Switcher.cs" />
+    <Compile Include="Controls\DifficultyControl.xaml.cs">
+      <DependentUpon>DifficultyControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MusicControl.xaml.cs">
+      <DependentUpon>MusicControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PlayControl.xaml.cs">
       <DependentUpon>PlayControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ScoreControl.xaml.cs">
+      <DependentUpon>ScoreControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\StartControl.xaml.cs">
       <DependentUpon>StartControl.xaml</DependentUpon>
@@ -152,6 +173,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Cycubeat.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Music\BGM.mp3" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

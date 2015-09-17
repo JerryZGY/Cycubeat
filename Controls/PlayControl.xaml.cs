@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 
 namespace Cycubeat.Controls
 {
@@ -14,6 +14,10 @@ namespace Cycubeat.Controls
         private System.Windows.Forms.Timer idleCountdownTimer = new System.Windows.Forms.Timer() { Interval = 1000 };
 
         private int idleCountdownTimes = 30;
+
+        private int score = 0;
+
+        private int stage = 0;
 
         private bool isStart = false;
 
@@ -27,6 +31,8 @@ namespace Cycubeat.Controls
 
         private TouchControl[] touchers = new TouchControl[9];
 
+        private DifficultyControl[] difficulties = new DifficultyControl[3];
+
         private static string[] fontColorsMap = { "#FF86FF86", "#FFFFFF00", "#FFFF5D5D" };
 
         public PlayControl()
@@ -34,7 +40,7 @@ namespace Cycubeat.Controls
             InitializeComponent();
         }
 
-        private void PlayControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        private void PlayControl_Loaded(object sender, RoutedEventArgs e)
         {
             initOriginProperty();
             initEnterStory();
@@ -61,8 +67,8 @@ namespace Cycubeat.Controls
             Img_Score.Width = resWidth / 7;
             Tbx_Difficulty.Opacity = 0;
             Tbx_Difficulty.FontSize = resWidth / 22;
-            Tbx_Score.Opacity = 0;
-            Tbx_Score.FontSize = resWidth / 22;
+            Ctrl_Score.Opacity = 0;
+            //Tbx_Score.FontSize = resWidth / 22;
             Img_BackgroundShine.RenderTransformOrigin = new Point(.5, .5);
             Img_BackgroundShine.RenderTransform = new ScaleTransform();
             Img_UserView.Opacity = 0;
@@ -73,8 +79,95 @@ namespace Cycubeat.Controls
             idleCountdownTimer.Tick += idleCountdownTimer_Tick;
         }
 
+        private void initEnterStory()
+        {
+            DoubleAnimation scale = new DoubleAnimation()
+            {
+                To = 1,
+                Duration = TimeSpan.FromSeconds(2),
+                EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut }
+            };
+            Img_Background.RenderTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scale);
+            Img_Background.RenderTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scale);
+
+            DoubleAnimation fadeIn = new DoubleAnimation()
+            {
+                To = 1,
+                Duration = TimeSpan.FromSeconds(2),
+                EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut }
+            };
+            fadeIn.Completed += (s, e) =>
+            {
+                DoubleAnimation translate = new DoubleAnimation()
+                {
+                    To = 0,
+                    Duration = TimeSpan.FromSeconds(1),
+                    EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut }
+                };
+                Grid_Left.RenderTransform.BeginAnimation(TranslateTransform.XProperty, translate);
+                translate.Completed += (se, ev) =>
+                {
+                    initBackgroundStory();
+                    //initRect();
+                    initDifficulty();
+                    DoubleAnimation innerFadeIn = new DoubleAnimation()
+                    {
+                        To = 1,
+                        Duration = TimeSpan.FromSeconds(.4),
+                        EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut }
+                    };
+
+                    Img_Choose.BeginAnimation(OpacityProperty, innerFadeIn);
+                    Img_UserView.BeginAnimation(OpacityProperty, innerFadeIn);
+                    innerFadeIn.BeginTime = TimeSpan.FromSeconds(.15);
+                    Img_Difficulty.BeginAnimation(OpacityProperty, innerFadeIn);
+                    innerFadeIn.BeginTime = TimeSpan.FromSeconds(.3);
+                    Tbx_Difficulty.BeginAnimation(OpacityProperty, innerFadeIn);
+                    innerFadeIn.BeginTime = TimeSpan.FromSeconds(.45);
+                    Btn_Extra.BeginAnimation(OpacityProperty, innerFadeIn);
+                    Img_Highest.BeginAnimation(OpacityProperty, innerFadeIn);
+                    innerFadeIn.BeginTime = TimeSpan.FromSeconds(.6);
+                    Img_Score.BeginAnimation(OpacityProperty, innerFadeIn);
+                    innerFadeIn.BeginTime = TimeSpan.FromSeconds(.75);
+                    Tbx_Timer.BeginAnimation(OpacityProperty, innerFadeIn);
+                    innerFadeIn.Completed += InnerFadeIn_Completed;
+                    Ctrl_Score.BeginAnimation(OpacityProperty, innerFadeIn);
+                };
+                Grid_Right.RenderTransform.BeginAnimation(TranslateTransform.XProperty, translate);
+            };
+            BeginAnimation(OpacityProperty, fadeIn);
+        }
+
+        private void initDifficulty()
+        {
+            var intervalX = resWidth / 19.2;
+            var intervalY = resHeight / 10.8;
+            for (int i = 0; i < difficulties.Length; i++)
+            {
+                var x = i % 3;
+                difficulties[i] = new DifficultyControl(i, TimeSpan.FromSeconds(i * 0.3));
+                difficulties[i].DifficultyEvent += new DifficultyEventHandler(selectDifficulty);
+                //difficulties[i].ExitEvent += new DifficultyExitDelegate(initRect);
+                switch (x)
+                {
+                    case 0:
+                        Canvas.SetLeft(difficulties[i], (resWidth - difficulties[i].Width) / 2 - (difficulties[i].Width + intervalX));
+                        break;
+                    case 1:
+                        Canvas.SetLeft(difficulties[i], (resWidth - difficulties[i].Width) / 2);
+                        break;
+                    case 2:
+                        Canvas.SetLeft(difficulties[i], (resWidth - difficulties[i].Width) / 2 + (difficulties[i].Width + intervalX));
+                        break;
+                }
+                
+                Canvas.SetTop(difficulties[i], (resHeight - difficulties[i].Height) / 2);
+                Cnv_Main.Children.Add(difficulties[i]);
+            }
+        }
+
         private void initRect()
-        {//touchers.Length
+        {
             for (int i = 0; i < touchers.Length; i++)
             {
                 touchers[i] = new TouchControl(TimeSpan.FromSeconds(i * 0.1));
@@ -109,66 +202,10 @@ namespace Cycubeat.Controls
                 }
                 Cnv_Main.Children.Add(touchers[i]);
             }
+            idleCountdownTimes = 60;
         }
 
-        private void initEnterStory()
-        {
-            DoubleAnimation scale = new DoubleAnimation()
-            {
-                To = 1,
-                Duration = TimeSpan.FromSeconds(2),
-                EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut }
-            };
-            Img_Background.RenderTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scale);
-            Img_Background.RenderTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scale);
-
-            DoubleAnimation fadeIn = new DoubleAnimation()
-            {
-                To = 1,
-                Duration = TimeSpan.FromSeconds(2),
-                EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut }
-            };
-            fadeIn.Completed += (s, e) =>
-            {
-                DoubleAnimation translate = new DoubleAnimation()
-                {
-                    To = 0,
-                    Duration = TimeSpan.FromSeconds(1),
-                    EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut }
-                };
-                Grid_Left.RenderTransform.BeginAnimation(TranslateTransform.XProperty, translate);
-                translate.Completed += (se, ev) =>
-                {
-                    initBackgroundStory();
-                    initRect();
-                    DoubleAnimation innerFadeIn = new DoubleAnimation()
-                    {
-                        To = 1,
-                        Duration = TimeSpan.FromSeconds(.4),
-                        EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut }
-                    };
-
-                    Img_Choose.BeginAnimation(OpacityProperty, innerFadeIn);
-                    Img_UserView.BeginAnimation(OpacityProperty, innerFadeIn);
-                    innerFadeIn.BeginTime = TimeSpan.FromSeconds(.15);
-                    Img_Difficulty.BeginAnimation(OpacityProperty, innerFadeIn);
-                    innerFadeIn.BeginTime = TimeSpan.FromSeconds(.3);
-                    Tbx_Difficulty.BeginAnimation(OpacityProperty, innerFadeIn);
-                    innerFadeIn.BeginTime = TimeSpan.FromSeconds(.45);
-                    Btn_Extra.BeginAnimation(OpacityProperty, innerFadeIn);
-                    Img_Highest.BeginAnimation(OpacityProperty, innerFadeIn);
-                    innerFadeIn.BeginTime = TimeSpan.FromSeconds(.6);
-                    Img_Score.BeginAnimation(OpacityProperty, innerFadeIn);
-                    innerFadeIn.BeginTime = TimeSpan.FromSeconds(.75);
-                    Tbx_Timer.BeginAnimation(OpacityProperty, innerFadeIn);
-                    innerFadeIn.Completed += InnerFadeIn_Completed;
-                    Tbx_Score.BeginAnimation(OpacityProperty, innerFadeIn);
-                };
-                Grid_Right.RenderTransform.BeginAnimation(TranslateTransform.XProperty, translate);
-            };
-            BeginAnimation(OpacityProperty, fadeIn);
-        }
-
+        
         private void initBackgroundStory()
         {
             DoubleAnimation fadeInEffect = new DoubleAnimation()
@@ -249,7 +286,84 @@ namespace Cycubeat.Controls
 
         private void updateScore(int score)
         {
-            Tbx_Score.Text = string.Format("{0:0000000}", score);
+            this.score += score;
+            Ctrl_Score.UpdateScore(string.Format("{0:0000000}", this.score));
+        }
+
+        private void selectDifficulty(int difficulty)
+        {
+            Tbx_Difficulty.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFromString(fontColorsMap[difficulty]));
+            switch (difficulty)
+            {
+                case 0:
+                    Tbx_Difficulty.Text = "Easy";
+                    difficulties[1].Prep();
+                    difficulties[2].Prep();
+                    break;
+                case 1:
+                    Tbx_Difficulty.Text = "Normal";
+                    difficulties[0].Prep();
+                    difficulties[2].Prep();
+                    break;
+                case 2:
+                    Tbx_Difficulty.Text = "Hard";
+                    difficulties[0].Prep();
+                    difficulties[1].Prep();
+                    break;
+            }
+        }
+
+        private void stage0Story()
+        {
+            DoubleAnimation fadeOut = new DoubleAnimation()
+            {
+                To = 0,
+                Duration = TimeSpan.FromSeconds(.2),
+                EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut }
+            };
+            Btn_Extra.BeginAnimation(OpacityProperty, fadeOut);
+            Img_Choose.BeginAnimation(OpacityProperty, fadeOut);
+            Img_Difficulty.BeginAnimation(OpacityProperty, fadeOut);
+            Img_Highest.BeginAnimation(OpacityProperty, fadeOut);
+            fadeOut.Completed += (s, e) =>
+            {
+                Img_Difficulty.Width = Img_Score.Width  = resWidth / 6;
+                Img_Difficulty.HorizontalAlignment = HorizontalAlignment.Center;
+                Img_Difficulty.VerticalAlignment = VerticalAlignment.Center;
+                Img_Score.HorizontalAlignment = HorizontalAlignment.Center;
+                Img_Score.VerticalAlignment = VerticalAlignment.Center;
+                DoubleAnimation fadeIn = new DoubleAnimation()
+                {
+                    To = 1,
+                    Duration = TimeSpan.FromSeconds(.2),
+                    EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut }
+                };
+                Img_Difficulty.BeginAnimation(OpacityProperty, fadeIn);
+                fadeIn.Completed += (se, ev) => initRect();
+                Img_Score.BeginAnimation(OpacityProperty, fadeIn);
+            };
+            Img_Score.BeginAnimation(OpacityProperty, fadeOut);
+        }
+
+        private void clearCnv()
+        {
+            Cnv_Main.Children.Clear();
+        }
+
+        private void Btn_Extra_Click(object sender, RoutedEventArgs e)
+        {
+            Btn_Extra.IsHitTestVisible = false;
+            if (stage == 0)
+            {
+                stage++;
+                foreach (var ctrl in difficulties)
+                {
+                    ctrl.Exit();
+                    ctrl.IsHitTestVisible = false;
+                }
+                difficulties = null;
+                stage0Story();
+            }
         }
     }
 }
