@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyTitle("Cycubeat")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("JZ'Studio")]
 [assembly: AssemblyProduct("Cycubeat")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
