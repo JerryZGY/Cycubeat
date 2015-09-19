@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using Cycubeat.Pages;
 
 namespace Cycubeat
@@ -15,12 +14,11 @@ namespace Cycubeat
 
         public void Navigate(System.Windows.Controls.UserControl nextPage)
         {
-            Content = nextPage;
-            ISwitchable s = nextPage as ISwitchable;
-            if (s != null)
-                s.Initialize();
+            var prevPage = Content as ISwitchable;
+            if (prevPage != null)
+                prevPage.ExitStory(() => Content = nextPage);
             else
-                throw new ArgumentException("NextPage is not ISwitchable! " + nextPage.Name.ToString());
+                Content = nextPage;
         }
     }
 }

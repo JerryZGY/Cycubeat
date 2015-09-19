@@ -1,8 +1,11 @@
-﻿namespace Cycubeat
+﻿using System;
+
+namespace Cycubeat
 {
     public interface ISwitchable
     {
-        void Initialize();
-        void Utilize();
+        void InitializeProperty();
+        void EnterStory();
+        void ExitStory(Action callback);
     }
 }

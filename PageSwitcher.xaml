@@ -7,4 +7,4 @@
         mc:Ignorable="d"
         Title="Cycubeat" d:DesignWidth="1366" d:DesignHeight="768"
         Width="{Binding SystemParameters.PrimaryScreenHeight}" Height="{Binding SystemParameters.PrimaryScreenHeight}"
-        ResizeMode="NoResize" WindowStyle="None" WindowState="Maximized" Background="White"/>
+        ResizeMode="NoResize" WindowStyle="None" WindowState="Maximized" Background="Black"/>

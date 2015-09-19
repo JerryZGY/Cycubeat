@@ -4,7 +4,42 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignWidth="1366" d:DesignHeight="768">
-    <Grid>
-    </Grid>
+             d:DesignWidth="1366" d:DesignHeight="768" Loaded="Page_Start_Loaded">
+    <UserControl.Resources>
+        <ResourceDictionary Source="../Resources/Res_Page_Start.xaml"/>
+    </UserControl.Resources>
+    <Viewbox>
+        <Grid x:Name="Grid_Main" Width="1366" Height="768">
+            <Grid.Background>
+                <ImageBrush ImageSource="/Cycubeat;component/Materials/StartGround.jpg">
+                    <ImageBrush.RelativeTransform>
+                        <ScaleTransform CenterY=".5" CenterX=".5"/>
+                    </ImageBrush.RelativeTransform>
+                </ImageBrush>
+            </Grid.Background>
+            <Grid x:Name="Grid_Foreground">
+                <Canvas x:Name="Cnv_Title" RenderTransformOrigin=".5 .5" Width="1366" Height="768">
+                    <Canvas.RenderTransform>
+                        <RotateTransform/>
+                    </Canvas.RenderTransform>
+                </Canvas>
+                <Image x:Name="Img_Title" Source="/Cycubeat;component/Materials/Title.png" Width="518"/>
+                <Image x:Name="Img_Title_Wave" Source="/Cycubeat;component/Materials/Title.png" Width="518" Opacity="0" RenderTransformOrigin=".5 .5">
+                    <Image.RenderTransform>
+                        <ScaleTransform/>
+                    </Image.RenderTransform>
+                    <Image.Effect>
+                        <BlurEffect/>
+                    </Image.Effect>
+                </Image>
+                <Image x:Name="Img_Title_Shine" Source="/Cycubeat;component/Materials/Title.png" Width="518" Opacity="0">
+                    <Image.Effect>
+                        <DropShadowEffect Color="White" Direction="90" BlurRadius="0"/>
+                    </Image.Effect>
+                </Image>
+                <Button Name="Btn_Start" Style="{StaticResource ResourceKey=Btn_Start}" Click="Btn_Start_Click"/>
+                <TextBlock x:Name="Tbx_Copyright" Text="© 2015 JerryZ CYIM 24th" VerticalAlignment="Bottom" Foreground="White" FontFamily="Nirmala UI" FontSize="16" HorizontalAlignment="Center"/>
+            </Grid>
+        </Grid>
+    </Viewbox>
 </UserControl>

@@ -83,11 +83,16 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Common\ISwitchable.cs" />
+    <Compile Include="Common\StoryHandler.cs" />
     <Compile Include="Common\Switcher.cs" />
     <Compile Include="PageSwitcher.xaml.cs">
       <DependentUpon>PageSwitcher.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\Page_Play.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Page_Start.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -96,8 +101,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\Res_Page_Start.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pages\Page_Play.xaml.cs">
+      <DependentUpon>Page_Play.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Page_Start.xaml.cs">
       <DependentUpon>Page_Start.xaml</DependentUpon>
     </Compile>
@@ -144,7 +156,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\" />
-    <Folder Include="Materials\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Materials\Choose.png" />
+    <Resource Include="Materials\Difficulty.png" />
+    <Resource Include="Materials\Highest.png" />
+    <Resource Include="Materials\PlayGround.jpg" />
+    <Resource Include="Materials\Score.png" />
+    <Resource Include="Materials\StartGround.jpg" />
+    <Resource Include="Materials\Title.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
