@@ -37,7 +37,7 @@
                         <DropShadowEffect Color="White" Direction="90" BlurRadius="0"/>
                     </Image.Effect>
                 </Image>
-                <Button Name="Btn_Start" Style="{StaticResource ResourceKey=Btn_Start}" Click="Btn_Start_Click"/>
+                <Button x:Name="Btn_Start" Style="{StaticResource ResourceKey=Btn_Start}" Click="Btn_Start_Click"/>
                 <TextBlock x:Name="Tbx_Copyright" Text="© 2015 JerryZ CYIM 24th" VerticalAlignment="Bottom" Foreground="White" FontFamily="Nirmala UI" FontSize="16" HorizontalAlignment="Center"/>
             </Grid>
         </Grid>

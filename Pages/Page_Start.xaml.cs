@@ -30,8 +30,6 @@ namespace Cycubeat.Pages
 
         public void InitializeProperty()
         {
-            /*Cnv_Title.Width = resWidth;
-            Cnv_Title.Height = resHeight;*/
             Img_Title.Opacity = 0;
             Tbx_Copyright.Opacity = 0;
             initRect();

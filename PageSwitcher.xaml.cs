@@ -3,6 +3,10 @@ using Cycubeat.Pages;
 
 namespace Cycubeat
 {
+    public delegate void TouchEventHandler(object sender, TouchEventArgs e);
+
+    public delegate void ExitEventHandler(object sender, TouchEventArgs e);
+
     public partial class PageSwitcher : Window
     {
         public PageSwitcher()
