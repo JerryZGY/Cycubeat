@@ -21,6 +21,21 @@ namespace Cycubeat
             story.Begin();
         }
 
+        public static void Begin(FrameworkElement element, string storyName, double beginTime)
+        {
+            Storyboard story = ((Storyboard)element.Resources[storyName]);
+            story.BeginTime = TimeSpan.FromSeconds(beginTime);
+            story.Begin();
+        }
+
+        public static void Begin(FrameworkElement element, string storyName, double beginTime, Action callback)
+        {
+            Storyboard story = ((Storyboard)element.Resources[storyName]);
+            story.BeginTime = TimeSpan.FromSeconds(beginTime);
+            story.Completed += (s, e) => callback();
+            story.Begin();
+        }
+
         public static void Begin(FrameworkElement element, string storyName, Action callback)
         {
             Storyboard story = ((Storyboard)element.Resources[storyName]);
@@ -35,6 +50,12 @@ namespace Cycubeat
                 Storyboard story = ((Storyboard)element.Resources[storyName]);
                 story.Begin();
             }
+        }
+
+        public static void Stop(FrameworkElement element, string storyName)
+        {
+            Storyboard story = ((Storyboard)element.Resources[storyName]);
+            story.Stop();
         }
     }
 }

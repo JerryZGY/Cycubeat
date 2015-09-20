@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:ctrl="clr-namespace:Cycubeat.Controls"
              mc:Ignorable="d"
-             d:DesignWidth="1366" d:DesignHeight="768" Loaded="loaded">
+             d:DesignWidth="1366" d:DesignHeight="768" Loaded="loaded" IsHitTestVisible="False">
     <UserControl.Resources>
         <Storyboard x:Key="Enter">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(Brush.RelativeTransform).(ScaleTransform.ScaleX)" Storyboard.TargetName="Grid_Main">
@@ -81,7 +81,7 @@
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
-        <Style x:Key="Tbx_Left" TargetType="{x:Type TextBlock}">
+        <Style x:Key="Tbx_Difficulty" TargetType="{x:Type TextBlock}">
             <Setter Property="TextWrapping" Value="NoWrap"/>
             <Setter Property="TextTrimming" Value="None"/>
             <Setter Property="Foreground" Value="White"/>
@@ -119,6 +119,78 @@
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
+        <Storyboard x:Key="StartEnter">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Img_Choose">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Img_Difficulty">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Img_Highest">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Img_Score">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="StartExit">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Img_Difficulty">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Img_Score">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Shine" AutoReverse="True" RepeatBehavior="Forever">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Img_BackgroundShine">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="0.5">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" Storyboard.TargetName="Img_BackgroundShine">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="1.02">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" Storyboard.TargetName="Img_BackgroundShine">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="1.02">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
     </UserControl.Resources>
     <Viewbox>
         <Grid x:Name="Grid_Main" Width="1366" Height="768">
@@ -129,7 +201,11 @@
                     </ImageBrush.RelativeTransform>
                 </ImageBrush>
             </Grid.Background>
-            <Image x:Name="Img_BackgroundShine" Source="/Cycubeat;component/Materials/PlayGround.jpg" Opacity="0"/>
+            <Image x:Name="Img_BackgroundShine" Source="/Cycubeat;component/Materials/PlayGround.jpg" Opacity="0" RenderTransformOrigin=".5 .5">
+                <Image.RenderTransform>
+                    <ScaleTransform/>
+                </Image.RenderTransform>
+            </Image>
             <Grid x:Name="Grid_Foreground">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -153,7 +229,7 @@
                     </Grid.RowDefinitions>
                     <Image Grid.Row="0" x:Name="Img_Choose" Style="{StaticResource ResourceKey=Img_LeftTop}" Source="/Cycubeat;component/Materials/Choose.png"/>
                     <Image Grid.Row="0" x:Name="Img_Difficulty" Style="{StaticResource ResourceKey=Img_LeftBottom}" Source="/Cycubeat;component/Materials/Difficulty.png"/>
-                    <TextBlock Grid.Row="1" x:Name="Tbx_Difficulty" Style="{StaticResource ResourceKey=Tbx_Left}" Text="Easy" FontFamily="Viner Hand ITC" Foreground="#FF86FF86"/>
+                    <TextBlock Grid.Row="1" x:Name="Tbx_Difficulty" Style="{StaticResource ResourceKey=Tbx_Difficulty}" Text="Easy" FontFamily="Viner Hand ITC" Foreground="#FFADFF2F"/>
                     <Image Grid.Row="2" x:Name="Img_Highest" Style="{StaticResource ResourceKey=Img_LeftTop}" Source="/Cycubeat;component/Materials/Highest.png"/>
                     <Image Grid.Row="2" x:Name="Img_Score" Style="{StaticResource ResourceKey=Img_LeftBottom}" Source="/Cycubeat;component/Materials/Score.png"/>
                     <ctrl:Ctrl_Score Grid.Row="3" x:Name="Ctrl_Score" Style="{StaticResource ResourceKey=Ctrl_Score}"/>
@@ -168,7 +244,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Image Grid.Row="0" x:Name="Img_UserView" Stretch="UniformToFill"/>
-                    <Button Grid.Row="1" x:Name="Btn_Extra" Width="250" Height="250" Background="Black" Opacity=".5" Click="Btn_Extra_Click"/>
+                    <ctrl:Ctrl_Touch Grid.Row="1" x:Name="Btn_Extra" Text="Start" Foreground="White"/>
                     <TextBlock Grid.Row="2" x:Name="Tbx_Timer" Style="{StaticResource ResourceKey=Tbx_Right}" Text="30"/>
                 </Grid>
             </Grid>

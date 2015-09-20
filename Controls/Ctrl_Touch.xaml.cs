@@ -1,14 +1,16 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Cycubeat.Controls
 {
     public partial class Ctrl_Touch : UserControl
     {
-        public event TouchEventHandler TouchEvent;
+        public event TouchDelegate TouchEvent;
 
-        public event ExitEventHandler ExitEvent;
+        public event ExitDelegate ExitEvent;
 
         public static readonly DependencyProperty GroupNameProperty = DependencyProperty.Register("GroupName", typeof(string), typeof(Ctrl_Touch), new PropertyMetadata(""));
         public string GroupName
@@ -24,31 +26,66 @@ namespace Cycubeat.Controls
             set { SetValue(TextProperty, value); }
         }
 
+        public void EnterStory(double beginTime)
+        {
+            StoryHandler.Begin(this, "Enter", beginTime, () => IsHitTestVisible = true);
+        }
+
+        public void EnterStory(double beginTime, Action callback)
+        {
+            StoryHandler.Begin(this, "Enter", beginTime, () =>
+            {
+                IsHitTestVisible = true;
+                callback();
+            });
+        }
+
         public void ExitStory()
         {
             IsHitTestVisible = false;
-            VisualStateManager.GoToState(RdBtn, "Exit", false);
+            if (ExitEvent != null)
+                StoryHandler.Begin(this, "Exit", () => ExitEvent());
+            else
+                StoryHandler.Begin(this, "Exit");
         }
 
-        private void ExitStoryCompleted(object sender, EventArgs e)
-        {
-            ExitEvent(null, null);
-        }
+        private bool isChecked = false;
 
         public Ctrl_Touch()
         {
             InitializeComponent();
             DataContext = this;
+            if (!DesignerProperties.GetIsInDesignMode(this))
+            {
+                Grid_Main.Opacity = 0;
+                RdBtn.Opacity = 0;
+                Eps_Effect.Opacity = 0;
+                Eps_Effect.RenderTransform = new ScaleTransform(0, 0);
+            }
         }
 
-        private void Ctrl_Touch_Loaded(object sender, RoutedEventArgs e)
+        private void mouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            VisualStateManager.GoToState(RdBtn, "Enter", false);
+            if (!isChecked)
+                StoryHandler.Begin(this, "MouseEnter");
         }
 
-        private void RdBtn_Click(object sender, RoutedEventArgs e)
+        private void mouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            TouchEvent(sender, new TouchEventArgs(RdBtn.Foreground));
+            if (!isChecked)
+                StoryHandler.Begin(this, "MouseExit");
+        }
+
+        private void check(object sender, RoutedEventArgs e)
+        {
+            TouchEvent();
+            isChecked = true;
+        }
+
+        private void uncheck(object sender, RoutedEventArgs e)
+        {
+            StoryHandler.Begin(this, "MouseExit");
+            isChecked = false;
         }
     }
 }

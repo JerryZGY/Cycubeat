@@ -1,0 +1,297 @@
+﻿<UserControl x:Class="Cycubeat.Controls.Ctrl_Beat"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Cycubeat.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="180" d:DesignWidth="180" IsHitTestVisible="False">
+    <UserControl.Resources>
+        <Storyboard x:Key="Enter">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Grid_Main">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Eps_Effect">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" Storyboard.TargetName="Eps_Effect">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" Storyboard.TargetName="Eps_Effect">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Exit">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Grid_Main">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Eps_Effect">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" Storyboard.TargetName="Eps_Effect">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" Storyboard.TargetName="Eps_Effect">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Peek">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Eps_Effect">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Tbx_Beat">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" Storyboard.TargetName="Eps_Effect">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" Storyboard.TargetName="Eps_Effect">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" Storyboard.TargetName="Tbx_Beat">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" Storyboard.TargetName="Tbx_Beat">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Pop">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Eps_Effect">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Tbx_Beat">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" Storyboard.TargetName="Eps_Effect">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" Storyboard.TargetName="Eps_Effect">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" Storyboard.TargetName="Tbx_Beat">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" Storyboard.TargetName="Tbx_Beat">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Beat" AutoReverse="True">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Eps_Effect">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" Storyboard.TargetName="Eps_Effect">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" Storyboard.TargetName="Eps_Effect">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="Eps_Effect">
+                <EasingColorKeyFrame KeyTime="0" Value="Red"/>
+                <EasingColorKeyFrame KeyTime="0:0:0.3" Value="Purple"/>
+            </ColorAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Tbx_Beat">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" Storyboard.TargetName="Tbx_Beat">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" Storyboard.TargetName="Tbx_Beat">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="PerfectBeat" AutoReverse="True">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Eps_Effect">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" Storyboard.TargetName="Eps_Effect">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" Storyboard.TargetName="Eps_Effect">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="Eps_Effect">
+                <EasingColorKeyFrame KeyTime="0" Value="Red"/>
+                <EasingColorKeyFrame KeyTime="0:0:0.3" Value="Orange"/>
+            </ColorAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Tbx_Beat">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" Storyboard.TargetName="Tbx_Beat">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" Storyboard.TargetName="Tbx_Beat">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
+    <Grid x:Name="Grid_Main" Background="#7F000000" Width="180" Height="180">
+        <Ellipse x:Name="Eps_Effect" Fill="Red" RenderTransformOrigin=".5 .5">
+            <Ellipse.RenderTransform>
+                <ScaleTransform/>
+            </Ellipse.RenderTransform>
+        </Ellipse>
+        <TextBlock x:Name="Tbx_Beat" Text="Touch" FontSize="35" Foreground="White" FontWeight="Bold" FontFamily="Viner Hand ITC" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin=".5 .5">
+            <TextBlock.RenderTransform>
+                <ScaleTransform/>
+            </TextBlock.RenderTransform>
+        </TextBlock>
+        <Button Name="Btn_Beat" Opacity="0" IsHitTestVisible="False" Click="click"/>
+    </Grid>
+</UserControl>

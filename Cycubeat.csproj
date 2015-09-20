@@ -79,6 +79,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Ctrl_Beat.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\Ctrl_Touch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -97,6 +101,9 @@
     <Compile Include="Common\TouchEventArgs.cs" />
     <Compile Include="Controls\Ctrl_Score.xaml.cs">
       <DependentUpon>Ctrl_Score.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Ctrl_Beat.xaml.cs">
+      <DependentUpon>Ctrl_Beat.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Ctrl_Touch.xaml.cs">
       <DependentUpon>Ctrl_Touch.xaml</DependentUpon>
