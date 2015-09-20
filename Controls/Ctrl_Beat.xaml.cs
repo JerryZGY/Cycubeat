@@ -28,7 +28,7 @@ namespace Cycubeat.Controls
             StoryHandler.Begin(this, "Enter", beginTime, () =>
             {
                 IsHitTestVisible = true;
-                beatTimer.Enabled = true;
+                //beatTimer.Enabled = true;
             });
         }
 

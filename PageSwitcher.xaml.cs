@@ -9,6 +9,8 @@ namespace Cycubeat
 
     public delegate void ExitDelegate();
 
+    public delegate void PeekDelegate(int id);
+
     public partial class PageSwitcher : Window
     {
         public PageSwitcher()

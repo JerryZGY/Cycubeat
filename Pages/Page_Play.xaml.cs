@@ -94,7 +94,7 @@ namespace Cycubeat.Pages
                 TouchEvent();
                 Btn_Start.ExitStory();
                 Grid_Right.Children.Remove(Btn_Start);
-                idleCountdownTimes = 10;
+                idleCountdownTimes = 60;
                 StoryHandler.Begin(this, "StartEnter", () =>
                 {
                     Img_Difficulty.Width = Img_Score.Width = 270;
@@ -158,7 +158,11 @@ namespace Cycubeat.Pages
                 Grid_Right.Children.Remove(Btn_End);
                 idleCountdownTimes = 60;
             };
-            Btn_End.EnterStory(0.45, () => IsHitTestVisible = true);
+            Btn_End.EnterStory(0.45, () =>
+            {
+                IsHitTestVisible = true;
+                Ctrl_Music.Play();
+            });
             Grid.SetRow(Btn_End, 1);
             Grid_Right.Children.Add(Btn_End);
 
@@ -174,6 +178,8 @@ namespace Cycubeat.Pages
                 Cnv_Main.Children.Add(beaters[i]);
             }
             BeatEvent += () => Array.ForEach(beaters, x => x.ExitStory());
+
+            Ctrl_Music.PeekEvent += (i) => beaters[i].StartBeat();
         }
     }
 }

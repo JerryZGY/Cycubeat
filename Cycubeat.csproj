@@ -75,6 +75,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\Ctrl_Music.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Ctrl_Score.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -99,6 +103,9 @@
     <Compile Include="Common\StoryHandler.cs" />
     <Compile Include="Common\Switcher.cs" />
     <Compile Include="Common\TouchEventArgs.cs" />
+    <Compile Include="Controls\Ctrl_Music.xaml.cs">
+      <DependentUpon>Ctrl_Music.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Ctrl_Score.xaml.cs">
       <DependentUpon>Ctrl_Score.xaml</DependentUpon>
     </Compile>
@@ -177,7 +184,11 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Music\BGM.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Materials\Choose.png" />
     <Resource Include="Materials\Difficulty.png" />

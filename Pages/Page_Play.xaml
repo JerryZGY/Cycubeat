@@ -206,6 +206,7 @@
                     <ScaleTransform/>
                 </Image.RenderTransform>
             </Image>
+            <ctrl:Ctrl_Music x:Name="Ctrl_Music"/>
             <Grid x:Name="Grid_Foreground">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
