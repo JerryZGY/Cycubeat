@@ -99,6 +99,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Common\ITouchable.cs" />
     <Compile Include="Common\ISwitchable.cs" />
     <Compile Include="Common\StoryHandler.cs" />
     <Compile Include="Common\Switcher.cs" />

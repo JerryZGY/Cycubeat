@@ -1,16 +1,13 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace Cycubeat.Controls
 {
-    public partial class Ctrl_Touch : UserControl
+    public partial class Ctrl_Touch : UserControl, ITouchable
     {
         public event TouchDelegate TouchEvent;
-
-        public event ExitDelegate ExitEvent;
 
         public static readonly DependencyProperty GroupNameProperty = DependencyProperty.Register("GroupName", typeof(string), typeof(Ctrl_Touch), new PropertyMetadata(""));
         public string GroupName
@@ -24,6 +21,12 @@ namespace Cycubeat.Controls
         {
             get { return (string)GetValue(TextProperty); }
             set { SetValue(TextProperty, value); }
+        }
+
+
+        public void EnterStory()
+        {
+            EnterStory(0);
         }
 
         public void EnterStory(double beginTime)
@@ -40,13 +43,15 @@ namespace Cycubeat.Controls
             });
         }
 
-        public void ExitStory()
+        public void ExitStory(Action callback)
         {
             IsHitTestVisible = false;
-            if (ExitEvent != null)
-                StoryHandler.Begin(this, "Exit", () => ExitEvent());
-            else
-                StoryHandler.Begin(this, "Exit");
+            StoryHandler.Begin(this, "Exit", callback);
+        }
+
+        public void RemoveSelf()
+        {
+            ((Canvas)Parent).Children.Remove(this);
         }
 
         private bool isChecked = false;
@@ -55,13 +60,18 @@ namespace Cycubeat.Controls
         {
             InitializeComponent();
             DataContext = this;
-            if (!DesignerProperties.GetIsInDesignMode(this))
-            {
-                Grid_Main.Opacity = 0;
-                RdBtn.Opacity = 0;
-                Eps_Effect.Opacity = 0;
-                Eps_Effect.RenderTransform = new ScaleTransform(0, 0);
-            }
+        }
+
+        public Ctrl_Touch(string text, SolidColorBrush brush)
+        {
+            InitializeComponent();
+            Text = text;
+            Foreground = brush;
+            DataContext = this;
+            Grid_Main.Opacity = 0;
+            RdBtn.Opacity = 0;
+            Eps_Effect.Opacity = 0;
+            Eps_Effect.RenderTransform = new ScaleTransform(0, 0);
         }
 
         private void mouseEnter(object sender, System.Windows.Input.MouseEventArgs e)

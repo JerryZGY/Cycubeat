@@ -5,9 +5,7 @@ namespace Cycubeat
 {
     public delegate void TouchDelegate();
 
-    public delegate void BeatDelegate();
-
-    public delegate void ExitDelegate();
+    public delegate void BeatDelegate(int score);
 
     public delegate void PeekDelegate(int id);
 

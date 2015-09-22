@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -9,10 +8,6 @@ namespace Cycubeat.Pages
 {
     public partial class Page_Play : UserControl, ISwitchable
     {
-        public event TouchDelegate TouchEvent;
-
-        public event BeatDelegate BeatEvent;
-
         public Page_Play()
         {
             InitializeComponent();
@@ -20,7 +15,7 @@ namespace Cycubeat.Pages
 
         public void EnterStory()
         {
-            StoryHandler.Begin(this, "Enter", () => idleCountdownTimer.Enabled = true);
+            StoryHandler.Begin(this, "Enter", () => countDownTimer.Enabled = true);
             initDifficulty();
         }
 
@@ -37,14 +32,26 @@ namespace Cycubeat.Pages
             Cnv_Main.Children.Clear();
             Grid_Right.Children.Remove(Btn_Extra);
             Tbx_Timer.Text = (idleCountdownTimes + 1).ToString();
-            idleCountdownTimer.Tick += IdleCountdownTimer_Tick;
+            countDownTimer.Tick += countDownTimer_Tick;
         }
 
-        private int stage = 0;
+        private int score = 0;
+
+        private int stageID = 0;
+
+        private enum Difficulty { Easy = 0, Normal, Hard };
+
+        private SolidColorBrush[] colorsMap = { Brushes.GreenYellow, Brushes.Gold, Brushes.Tomato };
+
+        private Ctrl_Touch[] touchers = new Ctrl_Touch[3];
+
+        private Ctrl_Beat[] beaters = new Ctrl_Beat[9];
 
         private int idleCountdownTimes = 29;
 
-        private void IdleCountdownTimer_Tick(object sender, EventArgs e)
+        private System.Windows.Forms.Timer countDownTimer = new System.Windows.Forms.Timer() { Interval = 1000 };
+
+        private void countDownTimer_Tick(object sender, EventArgs e)
         {
             if (idleCountdownTimes > 0)
             {
@@ -54,14 +61,8 @@ namespace Cycubeat.Pages
             else
             {
                 Tbx_Timer.Text = "";
-                idleCountdownTimer.Enabled = false;
-                if (stage == 0)
-                    Switcher.Switch(new Page_Start());
-                else
-                {
-                    BeatEvent();
-                    StoryHandler.Stop(this, "Shine");
-                }
+                countDownTimer.Enabled = false;
+                countDownOver();
             }
         }
 
@@ -72,7 +73,6 @@ namespace Cycubeat.Pages
             new Point(343, 544), new Point(593, 544), new Point(843, 544)
         };
 
-        private System.Windows.Forms.Timer idleCountdownTimer = new System.Windows.Forms.Timer() { Interval = 1000 };
 
         private void loaded(object sender, RoutedEventArgs e)
         {
@@ -80,106 +80,134 @@ namespace Cycubeat.Pages
             EnterStory();
         }
 
+        private void countDownOver()
+        {
+            switch (stageID)
+            {
+                case 0:
+                    Switcher.Switch(new Page_Start());
+                    break;
+                case 1:
+                    Ctrl_Music.Stop();
+                    exitStory(beaters);
+                    if (score >= 1000)
+                        initPassResult();
+                    else
+                        initResult();
+                    break;
+            }
+        }
+
+        private void exitStage()
+        {
+            switch (stageID)
+            {
+                case 0:
+                    StoryHandler.Begin(this, "Shine");
+                    idleCountdownTimes = 10;
+                    StoryHandler.Begin(this, "StartEnter", () => initBeater());
+                    break;
+                case 1:
+                    StoryHandler.Begin(this, "ExitResult");
+                    initNumpad();
+                    break;
+                case 2:
+                    break;
+            }
+            stageID++;
+        }
+
         private void initDifficulty()
         {
-            var Btn_Start = new Ctrl_Touch()
+            for (int i = 0; i < touchers.Length; i++)
             {
-                Text = "Start",
-                Foreground = Brushes.White
-            };
-            Btn_Start.TouchEvent += () =>
-            {
-                StoryHandler.Begin(this, "Shine");
-                stage++;
-                TouchEvent();
-                Btn_Start.ExitStory();
-                Grid_Right.Children.Remove(Btn_Start);
-                idleCountdownTimes = 60;
-                StoryHandler.Begin(this, "StartEnter", () =>
-                {
-                    Img_Difficulty.Width = Img_Score.Width = 270;
-                    Img_Difficulty.Margin = Img_Score.Margin = new Thickness(0);
-                    Img_Difficulty.HorizontalAlignment = Img_Score.HorizontalAlignment = HorizontalAlignment.Center;
-                    Img_Difficulty.VerticalAlignment = Img_Score.VerticalAlignment = VerticalAlignment.Center;
-                    initBeater();
-                    StoryHandler.Begin(this, "StartExit");
-                });
-            };
-            Btn_Start.EnterStory(1.15, () => IsHitTestVisible = true);
-            Grid.SetRow(Btn_Start, 1);
-            Grid_Right.Children.Add(Btn_Start);
-
-            Ctrl_Touch[] touchers =
-            {
-                new Ctrl_Touch()
-                {
-                    Text = "Easy",
-                    Foreground = Brushes.GreenYellow
-                },
-                new Ctrl_Touch()
-                {
-                    Text = "Normal",
-                    Foreground = Brushes.Gold
-                },
-                new Ctrl_Touch()
-                {
-                    Text = "Hard",
-                    Foreground = Brushes.Tomato
-                }
-            };
-            foreach (var x in touchers.Select((v, i) => new { i = i, v = v }))
-            {
-                x.v.GroupName = "Difficulty";
-                Canvas.SetLeft(x.v, 343 + x.i * 250);
-                Canvas.SetTop(x.v, 294);
-                x.v.TouchEvent += () =>
-                {
-                    Tbx_Difficulty.Text = x.v.Text;
-                    Tbx_Difficulty.Foreground = x.v.Foreground;
-                };
-                x.v.ExitEvent += () => Cnv_Main.Children.Remove(x.v);
-                x.v.EnterStory(x.i * 0.05 + 1);
-                Cnv_Main.Children.Add(x.v);
+                var text = ((Difficulty)i).ToString();
+                var foreground = colorsMap[i];
+                touchers[i] = new Ctrl_Touch(text, foreground);
+                touchers[i].GroupName = "Difficulty";
+                touchers[i].TouchEvent += () => { Tbx_Difficulty.Text = text; Tbx_Difficulty.Foreground = foreground; };
+                touchers[i].EnterStory(i * 0.05 + 1);
+                Canvas.SetLeft(touchers[i], 343 + i * 250);
+                Canvas.SetTop(touchers[i], 294);
+                Cnv_Main.Children.Add(touchers[i]);
             }
-            TouchEvent += () => Array.ForEach(touchers, x => x.ExitStory());
+
+            var btn_Start = new Ctrl_Touch("Start", Brushes.White);
+            btn_Start.TouchEvent += () =>
+            {
+                btn_Start.ExitStory(() => Grid_Right.Children.Remove(btn_Start));
+                exitStory(touchers);
+                exitStage();
+            };
+            btn_Start.EnterStory(1.15, () => IsHitTestVisible = true);
+            Grid.SetRow(btn_Start, 1);
+            Grid_Right.Children.Add(btn_Start);
         }
 
         private void initBeater()
         {
-            var Btn_End = new Ctrl_Touch()
-            {
-                Text = "Exit",
-                Foreground = Brushes.White
-            };
-            Btn_End.TouchEvent += () =>
-            {
-                BeatEvent();
-                Btn_End.ExitStory();
-                Grid_Right.Children.Remove(Btn_End);
-                idleCountdownTimes = 60;
-            };
-            Btn_End.EnterStory(0.45, () =>
-            {
-                IsHitTestVisible = true;
-                Ctrl_Music.Play();
-            });
-            Grid.SetRow(Btn_End, 1);
-            Grid_Right.Children.Add(Btn_End);
+            Img_Difficulty.Width = Img_Score.Width = 270;
+            Img_Difficulty.Margin = Img_Score.Margin = new Thickness(0);
+            Img_Difficulty.HorizontalAlignment = Img_Score.HorizontalAlignment = HorizontalAlignment.Center;
+            Img_Difficulty.VerticalAlignment = Img_Score.VerticalAlignment = VerticalAlignment.Center;
 
-            Ctrl_Beat[] beaters = new Ctrl_Beat[9];
             for (int i = 0; i < beaters.Length; i++)
             {
                 beaters[i] = new Ctrl_Beat();
                 Canvas.SetLeft(beaters[i], beaterMaps[i].X);
                 Canvas.SetTop(beaters[i], beaterMaps[i].Y);
-                beaters[i].TouchEvent += () => { };
-                beaters[i].ExitEvent += () => { };
+                beaters[i].BeatEvent += (score) => updateScore(score);
                 beaters[i].EnterStory(i * 0.05);
                 Cnv_Main.Children.Add(beaters[i]);
             }
-            BeatEvent += () => Array.ForEach(beaters, x => x.ExitStory());
-
             Ctrl_Music.PeekEvent += (i) => beaters[i].StartBeat();
+            Ctrl_Music.Play();
+            StoryHandler.Begin(this, "StartExit");
+        }
+
+        private void initResult()
+        {
+            Tbx_Subtitle.Text = "挑戰失敗";
+            Tbx_Cotent.FontSize = 60;
+            Tbx_Cotent.Text = "請再接再厲";
+            StoryHandler.Stop(this, "Shine");
+            StoryHandler.Begin(this, "EnterResult");
+            var btn_next = new Ctrl_Touch("Next", Brushes.White);
+            btn_next.EnterStory();
+            btn_next.TouchEvent += () => Switcher.Switch(new Page_Start());
+            Grid.SetRow(btn_next, 1);
+            Grid_Right.Children.Add(btn_next);
+        }
+
+        private void initPassResult()
+        {
+            StoryHandler.Stop(this, "Shine");
+            StoryHandler.Begin(this, "EnterResult");
+            var btn_next = new Ctrl_Touch("Next", Brushes.White);
+            btn_next.EnterStory();
+            btn_next.TouchEvent += () =>
+            {
+                btn_next.ExitStory(() => Grid_Right.Children.Remove(btn_next));
+                exitStage();
+            };
+            Grid.SetRow(btn_next, 1);
+            Grid_Right.Children.Add(btn_next);
+        }
+
+        private void initNumpad()
+        {
+
+        }
+
+        private void exitStory(ITouchable[] controls)
+        {
+            Array.ForEach(controls, x => x.ExitStory(() => x.RemoveSelf()));
+        }
+
+        private void updateScore(int score)
+        {
+            this.score += score;
+            Ctrl_Score.UpdateScore(string.Format("{0:0000000}", this.score));
         }
     }
 }

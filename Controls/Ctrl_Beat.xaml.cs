@@ -1,13 +1,11 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 
 namespace Cycubeat.Controls
 {
-    public partial class Ctrl_Beat : UserControl
+    public partial class Ctrl_Beat : UserControl, ITouchable
     {
         private System.Windows.Forms.Timer beatTimer = new System.Windows.Forms.Timer() { Interval = 2000 };
 
@@ -19,9 +17,12 @@ namespace Cycubeat.Controls
 
         private bool isClicked = false;
 
-        public event TouchDelegate TouchEvent;
+        public event BeatDelegate BeatEvent;
 
-        public event ExitDelegate ExitEvent;
+        public void EnterStory()
+        {
+            EnterStory(0);
+        }
 
         public void EnterStory(double beginTime)
         {
@@ -41,13 +42,15 @@ namespace Cycubeat.Controls
             });
         }
 
-        public void ExitStory()
+        public void ExitStory(Action callback)
         {
             IsHitTestVisible = false;
-            if (ExitEvent != null)
-                StoryHandler.Begin(this, "Exit", () => ExitEvent());
-            else
-                StoryHandler.Begin(this, "Exit");
+            StoryHandler.Begin(this, "Exit", callback);
+        }
+
+        public void RemoveSelf()
+        {
+            ((Canvas)Parent).Children.Remove(this);
         }
 
         public void StartBeat()
@@ -75,17 +78,14 @@ namespace Cycubeat.Controls
         {
             InitializeComponent();
             DataContext = this;
-            if (!DesignerProperties.GetIsInDesignMode(this))
-            {
-                Tbx_Beat.Opacity = 0;
-                Tbx_Beat.RenderTransform = new ScaleTransform(0, 0);
-                Grid_Main.Opacity = 0;
-                Eps_Effect.Opacity = 0;
-                Eps_Effect.RenderTransform = new ScaleTransform(0, 0);
-                Eps_Effect.Fill = new SolidColorBrush(Colors.Red);
-                beatTimer.Tick += beatTimerTimer_Tick;
-                perfectBeatTimer.Tick += perfectBeatTimer_Tick;
-            }
+            Tbx_Beat.Opacity = 0;
+            Tbx_Beat.RenderTransform = new ScaleTransform(0, 0);
+            Grid_Main.Opacity = 0;
+            Eps_Effect.Opacity = 0;
+            Eps_Effect.RenderTransform = new ScaleTransform(0, 0);
+            Eps_Effect.Fill = new SolidColorBrush(Colors.Red);
+            beatTimer.Tick += beatTimerTimer_Tick;
+            perfectBeatTimer.Tick += perfectBeatTimer_Tick;
         }
 
         private void beatTimerTimer_Tick(object sender, EventArgs e)
@@ -107,72 +107,15 @@ namespace Cycubeat.Controls
             if (!isPerfect)
             {
                 Tbx_Beat.Text = "";
+                BeatEvent(1000);
                 StoryHandler.Begin(this, "Beat");
             }
             else
             {
                 Tbx_Beat.Text = "Perfect";
+                BeatEvent(2000);
                 StoryHandler.Begin(this, "PerfectBeat");
             }
-        }
-
-        private void touch()
-        {
-            Btn_Beat.IsHitTestVisible = false;
-            DoubleAnimation start = new DoubleAnimation()
-            {
-                From = 0,
-                To = 1,
-                Duration = TimeSpan.FromSeconds(.3),
-                EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut },
-                AutoReverse = true
-            };
-            DoubleAnimation scale = new DoubleAnimation()
-            {
-                From = 0.8,
-                To = 1,
-                Duration = TimeSpan.FromSeconds(.3),
-                EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut },
-                AutoReverse = true
-            };
-            ColorAnimation perfectColor = new ColorAnimation()
-            {
-                From = Colors.Red,
-                To = Colors.Orange,
-                Duration = TimeSpan.FromSeconds(.3),
-                EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut },
-                AutoReverse = true
-            };
-            ColorAnimation normalColor = new ColorAnimation()
-            {
-                From = Colors.Red,
-                To = Colors.Blue,
-                Duration = TimeSpan.FromSeconds(.3),
-                EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut },
-                AutoReverse = true
-            };
-            Eps_Effect.Opacity = 0;
-            Eps_Effect.RenderTransformOrigin = new Point(.5, .5);
-            Eps_Effect.RenderTransform = new ScaleTransform();
-            Eps_Effect.BeginAnimation(OpacityProperty, start);
-            Eps_Effect.RenderTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scale);
-            Eps_Effect.RenderTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scale);
-            if (isPerfect)
-            {
-                Eps_Effect.Fill.BeginAnimation(SolidColorBrush.ColorProperty, perfectColor);
-                Tbx_Beat.Text = "Perfect";
-            }
-            else
-            {
-                Eps_Effect.Fill.BeginAnimation(SolidColorBrush.ColorProperty, normalColor);
-                Tbx_Beat.Text = "";
-            }
-            Tbx_Beat.Opacity = 0;
-            Tbx_Beat.RenderTransformOrigin = new Point(.5, .5);
-            Tbx_Beat.RenderTransform = new ScaleTransform();
-            Tbx_Beat.BeginAnimation(OpacityProperty, start);
-            Tbx_Beat.RenderTransform.BeginAnimation(ScaleTransform.ScaleXProperty, start);
-            Tbx_Beat.RenderTransform.BeginAnimation(ScaleTransform.ScaleYProperty, start);
         }
     }
 }

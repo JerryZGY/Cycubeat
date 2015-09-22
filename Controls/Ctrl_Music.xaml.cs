@@ -13,6 +13,12 @@ namespace Cycubeat.Controls
             Music.Play();
         }
 
+        public void Stop()
+        {
+            peekTimer.Enabled = false;
+            Music.Stop();
+        }
+
         private System.Windows.Forms.Timer peekTimer = new System.Windows.Forms.Timer() { Interval = 1 };
 
         private int i = 0;
