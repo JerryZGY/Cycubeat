@@ -133,7 +133,7 @@
                 <ScaleTransform/>
             </Ellipse.RenderTransform>
         </Ellipse>
-        <TextBlock x:Name="Tbx_Numpad" Text="{Binding Text}" FontSize="80" Foreground="White" FontWeight="Bold" FontFamily="Viner Hand ITC" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin=".5 .5" Margin="0 25 0 0">
+        <TextBlock x:Name="Tbx_Numpad" Text="{Binding Text}" FontSize="80" Foreground="White" FontWeight="Bold" FontFamily="Viner Hand ITC" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin=".5 .5" Margin="0 20 0 0">
             <TextBlock.RenderTransform>
                 <ScaleTransform/>
             </TextBlock.RenderTransform>
