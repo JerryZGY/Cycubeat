@@ -250,7 +250,42 @@
                     </EasingDoubleKeyFrame.EasingFunction>
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Img_StudentID">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Tbx_StudentID">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
         </Storyboard>
+        <Storyboard x:Key="EnterLottery">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Grid_Lottery">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Style x:Key="Tbx_StudentID" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="TextTrimming" Value="None"/>
+            <Setter Property="Foreground" Value="GreenYellow"/>
+            <Setter Property="FontSize" Value="60"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontFamily" Value="Vivaldi"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
     </UserControl.Resources>
     <Viewbox>
         <Grid x:Name="Grid_Main" Width="1366" Height="768">
@@ -288,8 +323,10 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
+                    <Image Grid.Row="0" x:Name="Img_StudentID" Source="/Cycubeat;component/Materials/StudentID.png" Opacity="0"/>
                     <Image Grid.Row="0" x:Name="Img_Choose" Style="{StaticResource ResourceKey=Img_LeftTop}" Source="/Cycubeat;component/Materials/Choose.png"/>
                     <Image Grid.Row="0" x:Name="Img_Difficulty" Style="{StaticResource ResourceKey=Img_LeftBottom}" Source="/Cycubeat;component/Materials/Difficulty.png"/>
+                    <TextBlock Grid.Row="1" x:Name="Tbx_StudentID" Style="{StaticResource ResourceKey=Tbx_StudentID}" Text="" Opacity="0"/>
                     <TextBlock Grid.Row="1" x:Name="Tbx_Difficulty" Style="{StaticResource ResourceKey=Tbx_Difficulty}" Text="Easy" FontFamily="Viner Hand ITC" Foreground="GreenYellow"/>
                     <Image Grid.Row="2" x:Name="Img_Highest" Style="{StaticResource ResourceKey=Img_LeftTop}" Source="/Cycubeat;component/Materials/Highest.png"/>
                     <Image Grid.Row="2" x:Name="Img_Score" Style="{StaticResource ResourceKey=Img_LeftBottom}" Source="/Cycubeat;component/Materials/Score.png"/>
@@ -297,12 +334,22 @@
                 </Grid>
                 <Grid Grid.Column="1" x:Name="Grid_Result" Background="#7F000000" IsHitTestVisible="False" Opacity="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="4*"/>
                         <RowDefinition Height="9*"/>
                     </Grid.RowDefinitions>
                     <TextBlock x:Name="Tbx_Subtitle" Foreground="White" FontSize="60" TextAlignment="Center" VerticalAlignment="Center" Text="挑戰成功"/>
                     <TextBlock Grid.RowSpan="2" x:Name="Tbx_Cotent" Foreground="White" FontSize="40" TextAlignment="Center" VerticalAlignment="Center">
-                        恭喜你通過挑戰門檻！<LineBreak/>輸入學號以參加抽獎<LineBreak/>有機會獲得西堤禮券哦～
+                        恭喜你通過挑戰門檻！<LineBreak/>輸入學號以參加天梯排行<LineBreak/>有機會獲得西堤禮券哦～
+                    </TextBlock>
+                </Grid>
+                <Grid Grid.Column="1" x:Name="Grid_Lottery" Background="#7F000000" IsHitTestVisible="False" Opacity="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="9*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="Tbx_Lottery" Foreground="White" FontSize="60" TextAlignment="Center" VerticalAlignment="Center" Text="登記完成"/>
+                    <TextBlock Grid.RowSpan="2" x:Name="Tbx_Info" Foreground="White" FontSize="40" TextAlignment="Center" VerticalAlignment="Center">
+                        資訊管理系　張O瑜同學　你好<LineBreak/>活動結束後將進行天梯結算<LineBreak/>前100名的同學即可獲得禮券<LineBreak/>歡迎持續挑戰追求更高的分數！
                     </TextBlock>
                 </Grid>
                 <Grid Grid.Column="2" x:Name="Grid_Right" Background="#7F000000" RenderTransformOrigin=".5 .5">
@@ -316,7 +363,7 @@
                     </Grid.RowDefinitions>
                     <Image Grid.Row="0" x:Name="Img_UserView" Stretch="UniformToFill"/>
                     <ctrl:Ctrl_Difficulty Grid.Row="1" x:Name="Btn_Extra" Text="Start" Foreground="White"/>
-                    <TextBlock Grid.Row="2" x:Name="Tbx_Timer" Style="{StaticResource ResourceKey=Tbx_Right}" Text="30"/>
+                    <TextBlock Grid.Row="2" x:Name="Tbx_Timer" Style="{StaticResource ResourceKey=Tbx_Right}" Text="15"/>
                 </Grid>
             </Grid>
         </Grid>

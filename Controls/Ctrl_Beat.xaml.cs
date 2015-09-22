@@ -19,6 +19,8 @@ namespace Cycubeat.Controls
 
         public event BeatDelegate BeatEvent;
 
+        public event PopDelegate PopEvent;
+
         public void EnterStory()
         {
             EnterStory(0);
@@ -74,6 +76,29 @@ namespace Cycubeat.Controls
             });
         }
 
+        public void StartBeat(Action callback)
+        {
+            Btn_Beat.IsHitTestVisible = true;
+            Tbx_Beat.Text = "Touch";
+            perfectTimes = 0;
+            isPerfect = false;
+            isClicked = false;
+            perfectBeatTimer.Enabled = true;
+            StoryHandler.Begin(this, "Peek", () =>
+            {
+                if (!isClicked)
+                {
+                    StoryHandler.Begin(this, "Pop", () =>
+                    {
+                        perfectBeatTimer.Enabled = false;
+                        Btn_Beat.IsHitTestVisible = false;
+                        callback();
+                        PopEvent();
+                    });
+                }
+            });
+        }
+
         public Ctrl_Beat()
         {
             InitializeComponent();
@@ -108,13 +133,13 @@ namespace Cycubeat.Controls
             {
                 Tbx_Beat.Text = "";
                 BeatEvent(1000);
-                StoryHandler.Begin(this, "Beat");
+                StoryHandler.Begin(this, "Beat", () => PopEvent());
             }
             else
             {
                 Tbx_Beat.Text = "Perfect";
                 BeatEvent(2000);
-                StoryHandler.Begin(this, "PerfectBeat");
+                StoryHandler.Begin(this, "PerfectBeat", () => PopEvent());
             }
         }
     }

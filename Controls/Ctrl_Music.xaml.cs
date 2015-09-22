@@ -31,33 +31,27 @@ namespace Cycubeat.Controls
         private void loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             Music.Source = new Uri("Music/BGM.mp3", UriKind.Relative);
-            Music.Volume = 1;
+            Music.Volume = 0.5;
             peekTimer.Tick += tick;
         }
 
         private void tick(object sender, EventArgs e)
         {
-            switch (i)
+            if (i < 70)
             {
-                case 400:
-                case 550:
-                    PeekEvent(0);
-                    PeekEvent(2);
-                    break;
-                case 450:
-                case 600:
-                    PeekEvent(3);
-                    PeekEvent(5);
-                    break;
-                case 500:
-                case 650:
-                    PeekEvent(6);
-                    PeekEvent(8);
-                    break;
-                default:
-                    break;
+                var musicTimingPoint = Convert.ToInt32(Music.Position.TotalMilliseconds);
+                var isPeeking = false;
+                foreach (var timingPoint in Switcher.pageSwitcher.TimingPoints)
+                {
+                    if (musicTimingPoint - timingPoint >= -10 && musicTimingPoint - timingPoint < 10 && !isPeeking)
+                    {
+                        isPeeking = true;
+                        PeekEvent(Switcher.pageSwitcher.HitPoints[i]);
+                        i++;
+                        break;
+                    }
+                }
             }
-            i++;
         }
     }
 }

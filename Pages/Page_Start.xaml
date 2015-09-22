@@ -17,6 +17,7 @@
                     </ImageBrush.RelativeTransform>
                 </ImageBrush>
             </Grid.Background>
+            <MediaElement x:Name="Music" LoadedBehavior="Manual" UnloadedBehavior="Stop" Visibility="Collapsed" MediaOpened="Music_MediaOpened" MediaEnded="Music_MediaEnded" Source="Music/Start.wav" Volume="0.2"/>
             <Grid x:Name="Grid_Foreground">
                 <Canvas x:Name="Cnv_Title" RenderTransformOrigin=".5 .5" Width="1366" Height="768">
                     <Canvas.RenderTransform>

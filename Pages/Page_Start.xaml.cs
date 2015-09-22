@@ -88,5 +88,16 @@ namespace Cycubeat.Pages
             Btn_Start.IsHitTestVisible = false;
             Switcher.Switch(new Page_Play());
         }
+
+        private void Music_MediaOpened(object sender, RoutedEventArgs e)
+        {
+            Music.Play();
+        }
+
+        private void Music_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            Music.Position = TimeSpan.Zero;
+            Music.Play();
+        }
     }
 }

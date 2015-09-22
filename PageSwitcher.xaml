@@ -7,4 +7,14 @@
         mc:Ignorable="d"
         Title="Cycubeat" d:DesignWidth="1366" d:DesignHeight="768"
         Width="{Binding SystemParameters.PrimaryScreenHeight}" Height="{Binding SystemParameters.PrimaryScreenHeight}"
-         Background="Black"/>
+        ResizeMode="NoResize" WindowStyle="None" WindowState="Maximized" Background="Black">
+    <Viewbox>
+        <Grid>
+            <ContentPresenter x:Name="Presenter"/>
+            <Canvas Name="Canvas_Pointer">
+                <Image Name="PointerFirst" Width="50" Height="50" Visibility="Collapsed" Source="Materials/PointerFirst.png"/>
+                <Image Name="PointerSecond" Width="50" Height="50" Visibility="Collapsed" Source="Materials/PointerSecond.png"/>
+            </Canvas>
+        </Grid>
+    </Viewbox>
+</Window>

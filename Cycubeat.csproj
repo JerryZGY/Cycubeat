@@ -54,6 +54,8 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Kinect, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Kinect.Wpf.Controls, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
@@ -75,6 +77,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\Ctrl_Function.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Ctrl_Music.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -105,9 +111,13 @@
     </Compile>
     <Compile Include="Common\ITouchable.cs" />
     <Compile Include="Common\ISwitchable.cs" />
+    <Compile Include="Common\KinectHandler.cs" />
     <Compile Include="Common\StoryHandler.cs" />
     <Compile Include="Common\Switcher.cs" />
     <Compile Include="Common\TouchEventArgs.cs" />
+    <Compile Include="Controls\Ctrl_Function.xaml.cs">
+      <DependentUpon>Ctrl_Function.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Ctrl_Music.xaml.cs">
       <DependentUpon>Ctrl_Music.xaml</DependentUpon>
     </Compile>
@@ -193,6 +203,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Materials\PointerFirst.png" />
+    <Resource Include="Materials\PointerSecond.png" />
+    <Content Include="Music\Start.wav" />
     <Resource Include="Materials\StudentID.png" />
     <Content Include="Music\BGM.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
