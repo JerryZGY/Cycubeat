@@ -148,6 +148,20 @@
                     </EasingDoubleKeyFrame.EasingFunction>
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Tbx_Difficulty">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Ctrl_Score">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="StartExit">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Img_Difficulty">
@@ -158,6 +172,20 @@
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Img_Score">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Tbx_Difficulty">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Ctrl_Score">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
                     <EasingDoubleKeyFrame.EasingFunction>
                         <QuarticEase EasingMode="EaseOut"/>
@@ -232,9 +260,9 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Canvas x:Name="Cnv_Main" Grid.ColumnSpan="3" Width="1366" Height="768">
-                    <ctrl:Ctrl_Touch Canvas.Left="343" Canvas.Top="294" GroupName="Difficulty" Text="Easy" Foreground="GreenYellow"/>
-                    <ctrl:Ctrl_Touch Canvas.Left="593" Canvas.Top="294" GroupName="Difficulty" Text="Normal" Foreground="Gold"/>
-                    <ctrl:Ctrl_Touch Canvas.Left="843" Canvas.Top="294" GroupName="Difficulty" Text="Hard" Foreground="Tomato"/>
+                    <ctrl:Ctrl_Difficulty Canvas.Left="343" Canvas.Top="294" GroupName="Difficulty" Text="Easy" Foreground="GreenYellow"/>
+                    <ctrl:Ctrl_Difficulty Canvas.Left="593" Canvas.Top="294" GroupName="Difficulty" Text="Normal" Foreground="Gold"/>
+                    <ctrl:Ctrl_Difficulty Canvas.Left="843" Canvas.Top="294" GroupName="Difficulty" Text="Hard" Foreground="Tomato"/>
                 </Canvas>
                 <Grid Grid.Column="0" x:Name="Grid_Left" Background="#7F000000" RenderTransformOrigin=".5 .5">
                     <Grid.RenderTransform>
@@ -259,8 +287,8 @@
                         <RowDefinition Height="9*"/>
                     </Grid.RowDefinitions>
                     <TextBlock x:Name="Tbx_Subtitle" Foreground="White" FontSize="60" TextAlignment="Center" VerticalAlignment="Center" Text="挑戰成功"/>
-                    <TextBlock Grid.Row="1" Grid.RowSpan="2" x:Name="Tbx_Cotent" Foreground="White" FontSize="40" TextAlignment="Center" VerticalAlignment="Center">
-                        恭喜你通過挑戰門檻<LineBreak/>輸入學號以參加抽獎
+                    <TextBlock Grid.RowSpan="2" x:Name="Tbx_Cotent" Foreground="White" FontSize="40" TextAlignment="Center" VerticalAlignment="Center">
+                        恭喜你通過挑戰門檻！<LineBreak/>輸入學號以參加抽獎<LineBreak/>有機會獲得西堤禮券哦～
                     </TextBlock>
                 </Grid>
                 <Grid Grid.Column="2" x:Name="Grid_Right" Background="#7F000000" RenderTransformOrigin=".5 .5">
@@ -273,7 +301,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Image Grid.Row="0" x:Name="Img_UserView" Stretch="UniformToFill"/>
-                    <ctrl:Ctrl_Touch Grid.Row="1" x:Name="Btn_Extra" Text="Start" Foreground="White"/>
+                    <ctrl:Ctrl_Difficulty Grid.Row="1" x:Name="Btn_Extra" Text="Start" Foreground="White"/>
                     <TextBlock Grid.Row="2" x:Name="Tbx_Timer" Style="{StaticResource ResourceKey=Tbx_Right}" Text="30"/>
                 </Grid>
             </Grid>

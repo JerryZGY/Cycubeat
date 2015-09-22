@@ -3,11 +3,13 @@ using Cycubeat.Pages;
 
 namespace Cycubeat
 {
-    public delegate void TouchDelegate();
+    public delegate void DifficultyDelegate();
 
     public delegate void BeatDelegate(int score);
 
     public delegate void PeekDelegate(int id);
+
+    public delegate void NumpadDelegate(int num);
 
     public partial class PageSwitcher : Window
     {

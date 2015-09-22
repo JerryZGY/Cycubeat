@@ -5,18 +5,18 @@ using System.Windows.Media;
 
 namespace Cycubeat.Controls
 {
-    public partial class Ctrl_Touch : UserControl, ITouchable
+    public partial class Ctrl_Difficulty : UserControl, ITouchable
     {
-        public event TouchDelegate TouchEvent;
+        public event DifficultyDelegate TouchEvent;
 
-        public static readonly DependencyProperty GroupNameProperty = DependencyProperty.Register("GroupName", typeof(string), typeof(Ctrl_Touch), new PropertyMetadata(""));
+        public static readonly DependencyProperty GroupNameProperty = DependencyProperty.Register("GroupName", typeof(string), typeof(Ctrl_Difficulty), new PropertyMetadata(""));
         public string GroupName
         {
             get { return (string)GetValue(GroupNameProperty); }
             set { SetValue(GroupNameProperty, value); }
         }
 
-        public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(Ctrl_Touch), new PropertyMetadata(""));
+        public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(Ctrl_Difficulty), new PropertyMetadata(""));
         public string Text
         {
             get { return (string)GetValue(TextProperty); }
@@ -56,13 +56,13 @@ namespace Cycubeat.Controls
 
         private bool isChecked = false;
 
-        public Ctrl_Touch()
+        public Ctrl_Difficulty()
         {
             InitializeComponent();
             DataContext = this;
         }
 
-        public Ctrl_Touch(string text, SolidColorBrush brush)
+        public Ctrl_Difficulty(string text, SolidColorBrush brush)
         {
             InitializeComponent();
             Text = text;

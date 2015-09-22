@@ -43,9 +43,11 @@ namespace Cycubeat.Pages
 
         private SolidColorBrush[] colorsMap = { Brushes.GreenYellow, Brushes.Gold, Brushes.Tomato };
 
-        private Ctrl_Touch[] touchers = new Ctrl_Touch[3];
+        private Ctrl_Difficulty[] touchers = new Ctrl_Difficulty[3];
 
         private Ctrl_Beat[] beaters = new Ctrl_Beat[9];
+
+        private Ctrl_Numpad[] numbers = new Ctrl_Numpad[10];
 
         private int idleCountdownTimes = 29;
 
@@ -66,7 +68,7 @@ namespace Cycubeat.Pages
             }
         }
 
-        private Point[] beaterMaps =
+        private Point[] controlsMap =
         {
             new Point(343, 44), new Point(593, 44), new Point(843, 44),
             new Point(343, 294), new Point(593, 294), new Point(843, 294),
@@ -108,8 +110,7 @@ namespace Cycubeat.Pages
                     StoryHandler.Begin(this, "StartEnter", () => initBeater());
                     break;
                 case 1:
-                    StoryHandler.Begin(this, "ExitResult");
-                    initNumpad();
+                    StoryHandler.Begin(this, "ExitResult", () => initNumpad());
                     break;
                 case 2:
                     break;
@@ -123,7 +124,7 @@ namespace Cycubeat.Pages
             {
                 var text = ((Difficulty)i).ToString();
                 var foreground = colorsMap[i];
-                touchers[i] = new Ctrl_Touch(text, foreground);
+                touchers[i] = new Ctrl_Difficulty(text, foreground);
                 touchers[i].GroupName = "Difficulty";
                 touchers[i].TouchEvent += () => { Tbx_Difficulty.Text = text; Tbx_Difficulty.Foreground = foreground; };
                 touchers[i].EnterStory(i * 0.05 + 1);
@@ -132,7 +133,7 @@ namespace Cycubeat.Pages
                 Cnv_Main.Children.Add(touchers[i]);
             }
 
-            var btn_Start = new Ctrl_Touch("Start", Brushes.White);
+            var btn_Start = new Ctrl_Difficulty("Start", Brushes.White);
             btn_Start.TouchEvent += () =>
             {
                 btn_Start.ExitStory(() => Grid_Right.Children.Remove(btn_Start));
@@ -154,8 +155,8 @@ namespace Cycubeat.Pages
             for (int i = 0; i < beaters.Length; i++)
             {
                 beaters[i] = new Ctrl_Beat();
-                Canvas.SetLeft(beaters[i], beaterMaps[i].X);
-                Canvas.SetTop(beaters[i], beaterMaps[i].Y);
+                Canvas.SetLeft(beaters[i], controlsMap[i].X);
+                Canvas.SetTop(beaters[i], controlsMap[i].Y);
                 beaters[i].BeatEvent += (score) => updateScore(score);
                 beaters[i].EnterStory(i * 0.05);
                 Cnv_Main.Children.Add(beaters[i]);
@@ -172,7 +173,7 @@ namespace Cycubeat.Pages
             Tbx_Cotent.Text = "請再接再厲";
             StoryHandler.Stop(this, "Shine");
             StoryHandler.Begin(this, "EnterResult");
-            var btn_next = new Ctrl_Touch("Next", Brushes.White);
+            var btn_next = new Ctrl_Difficulty("Next", Brushes.White);
             btn_next.EnterStory();
             btn_next.TouchEvent += () => Switcher.Switch(new Page_Start());
             Grid.SetRow(btn_next, 1);
@@ -183,7 +184,7 @@ namespace Cycubeat.Pages
         {
             StoryHandler.Stop(this, "Shine");
             StoryHandler.Begin(this, "EnterResult");
-            var btn_next = new Ctrl_Touch("Next", Brushes.White);
+            var btn_next = new Ctrl_Difficulty("Next", Brushes.White);
             btn_next.EnterStory();
             btn_next.TouchEvent += () =>
             {
@@ -196,7 +197,23 @@ namespace Cycubeat.Pages
 
         private void initNumpad()
         {
-
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                numbers[i] = new Ctrl_Numpad(i.ToString());
+                numbers[i].NumEvent += (num) => enterNumber(num);
+                numbers[i].EnterStory(i * 0.05);
+                if (i == 0)
+                {
+                    Grid.SetRow(numbers[i], 1);
+                    Grid_Right.Children.Add(numbers[i]);
+                }
+                else
+                {
+                    Canvas.SetLeft(numbers[i], controlsMap[i - 1].X);
+                    Canvas.SetTop(numbers[i], controlsMap[i - 1].Y);
+                    Cnv_Main.Children.Add(numbers[i]);
+                }
+            }
         }
 
         private void exitStory(ITouchable[] controls)
@@ -208,6 +225,11 @@ namespace Cycubeat.Pages
         {
             this.score += score;
             Ctrl_Score.UpdateScore(string.Format("{0:0000000}", this.score));
+        }
+
+        private void enterNumber(int num)
+        {
+            Ctrl_Score.UpdateScore(string.Format("{0:0000000}", num * 1000));
         }
     }
 }

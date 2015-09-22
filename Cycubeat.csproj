@@ -79,6 +79,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Ctrl_Numpad.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Ctrl_Score.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -87,7 +91,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\Ctrl_Touch.xaml">
+    <Page Include="Controls\Ctrl_Difficulty.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -107,14 +111,17 @@
     <Compile Include="Controls\Ctrl_Music.xaml.cs">
       <DependentUpon>Ctrl_Music.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Ctrl_Numpad.xaml.cs">
+      <DependentUpon>Ctrl_Numpad.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Ctrl_Score.xaml.cs">
       <DependentUpon>Ctrl_Score.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Ctrl_Beat.xaml.cs">
       <DependentUpon>Ctrl_Beat.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Ctrl_Touch.xaml.cs">
-      <DependentUpon>Ctrl_Touch.xaml</DependentUpon>
+    <Compile Include="Controls\Ctrl_Difficulty.xaml.cs">
+      <DependentUpon>Ctrl_Difficulty.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageSwitcher.xaml.cs">
       <DependentUpon>PageSwitcher.xaml</DependentUpon>
