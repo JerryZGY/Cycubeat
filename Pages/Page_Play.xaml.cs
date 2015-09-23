@@ -27,6 +27,120 @@ namespace Cycubeat.Pages
 
         public void InitializeProperty()
         {
+            var kinect = new KinectHandler();
+            kinect.BodyEvent += (b) => Img_UserView.Source = b;
+            kinect.HandEvent += (l, r, iL, iR) =>
+            {
+                Canvas.SetLeft(PointerFirst, l.X);
+                Canvas.SetTop(PointerFirst, l.Y);
+                Canvas.SetLeft(PointerSecond, r.X);
+                Canvas.SetTop(PointerSecond, r.Y);
+                Tbx_L.Text = $"X:{Convert.ToInt32(l.X).ToString()} Y:{Convert.ToInt32(l.Y).ToString()}";
+                Tbx_R.Text = $"X:{Convert.ToInt32(r.X).ToString()} Y:{Convert.ToInt32(l.X).ToString()}";
+                //new Point(343, 44), new Point(593, 44), new Point(843, 44),
+                //new Point(343, 294), new Point(593, 294), new Point(843, 294),
+                //new Point(343, 544), new Point(593, 544), new Point(843, 544)
+                if (iL && beaters[8] != null)
+                {
+                    var e = new RoutedEventArgs(Button.ClickEvent);
+                    if (l.X >= 343 && l.X <= 523)
+                    {
+                        if (l.Y >= 44 && l.Y <= 224)
+                        {
+                            beaters[0].Btn_Beat.RaiseEvent(e);
+                        }
+                        else if (l.Y >= 294 && l.Y <= 474)
+                        {
+                            beaters[3].Btn_Beat.RaiseEvent(e);
+                        }
+                        else if (l.Y >= 544 && l.Y <= 724)
+                        {
+                            beaters[6].Btn_Beat.RaiseEvent(e);
+                        }
+                    }
+                    else if (l.X >= 593 && l.X <= 773)
+                    {
+                        if (l.Y >= 44 && l.Y <= 224)
+                        {
+                            beaters[1].Btn_Beat.RaiseEvent(e);
+                        }
+                        else if (l.Y >= 294 && l.Y <= 474)
+                        {
+                            beaters[4].Btn_Beat.RaiseEvent(e);
+                        }
+                        else if (l.Y >= 544 && l.Y <= 724)
+                        {
+                            beaters[7].Btn_Beat.RaiseEvent(e);
+                        }
+                    }
+                    else if (l.X >= 843 && l.X <= 1023)
+                    {
+                        if (l.Y >= 44 && l.Y <= 224)
+                        {
+                            beaters[2].Btn_Beat.RaiseEvent(e);
+                        }
+                        else if (l.Y >= 294 && l.Y <= 474)
+                        {
+                            beaters[5].Btn_Beat.RaiseEvent(e);
+                        }
+                        else if (l.Y >= 544 && l.Y <= 724)
+                        {
+                            beaters[8].Btn_Beat.RaiseEvent(e);
+                        }
+                    }
+                }
+
+                if (iR && beaters[8] != null)
+                {
+                    var e = new RoutedEventArgs(Button.ClickEvent);
+                    if (r.X >= 343 && r.X <= 523)
+                    {
+                        if (r.Y >= 44 && r.Y <= 224)
+                        {
+                            beaters[0].Btn_Beat.RaiseEvent(e);
+                        }
+                        else if (r.Y >= 294 && r.Y <= 474)
+                        {
+                            beaters[3].Btn_Beat.RaiseEvent(e);
+                        }
+                        else if (r.Y >= 544 && r.Y <= 724)
+                        {
+                            beaters[6].Btn_Beat.RaiseEvent(e);
+                        }
+                    }
+                    else if (r.X >= 593 && r.X <= 773)
+                    {
+                        if (r.Y >= 44 && r.Y <= 224)
+                        {
+                            beaters[1].Btn_Beat.RaiseEvent(e);
+                        }
+                        else if (r.Y >= 294 && r.Y <= 474)
+                        {
+                            beaters[4].Btn_Beat.RaiseEvent(e);
+                        }
+                        else if (r.Y >= 544 && r.Y <= 724)
+                        {
+                            beaters[7].Btn_Beat.RaiseEvent(e);
+                        }
+                    }
+                    else if (r.X >= 843 && r.X <= 1023)
+                    {
+                        if (r.Y >= 44 && r.Y <= 224)
+                        {
+                            beaters[2].Btn_Beat.RaiseEvent(e);
+                        }
+                        else if (r.Y >= 294 && r.Y <= 474)
+                        {
+                            beaters[5].Btn_Beat.RaiseEvent(e);
+                        }
+                        else if (r.Y >= 544 && r.Y <= 724)
+                        {
+                            beaters[8].Btn_Beat.RaiseEvent(e);
+                        }
+                    }
+                }
+            };
+            Img_UserView.Source = Switcher.pageSwitcher.bodyIndexBitmap;
             isPeeking = false;
             countdownTimes = 14;
             score = 0;
@@ -51,15 +165,17 @@ namespace Cycubeat.Pages
 
         private enum Difficulty { Easy = 0, Normal, Hard };
 
-        private Ctrl_Difficulty btn_Next;
-
         private SolidColorBrush[] colorsMap = { Brushes.GreenYellow, Brushes.Gold, Brushes.Tomato };
 
-        private Ctrl_Difficulty[] touchers;
+        public Ctrl_Difficulty btn_Next;
 
-        private Ctrl_Beat[] beaters;
+        public Ctrl_Difficulty Btn_Start;
 
-        private Ctrl_Numpad[] numbers;
+        public Ctrl_Difficulty[] touchers;
+
+        public Ctrl_Beat[] beaters;
+
+        public Ctrl_Numpad[] numbers;
 
         private int countdownTimes = 14;
 
@@ -168,16 +284,22 @@ namespace Cycubeat.Pages
                 Cnv_Main.Children.Add(touchers[i]);
             }
 
-            var btn_Start = new Ctrl_Difficulty("Start", Brushes.White);
-            btn_Start.TouchEvent += () =>
+            Btn_Start = new Ctrl_Difficulty("Start", Brushes.White);
+            Btn_Start.TouchEvent += () =>
             {
-                btn_Start.ExitStory(() => Grid_Right.Children.Remove(btn_Start));
+                Btn_Start.RdBtn = null;
+                Btn_Start.ExitStory(() =>
+                {
+                    Grid_Right.Children.Remove(Btn_Start);
+                    Btn_Start = null;
+                });
+                
                 exitStory(touchers);
                 exitStage();
             };
-            btn_Start.EnterStory(1.15, () => IsHitTestVisible = true);
-            Grid.SetRow(btn_Start, 1);
-            Grid_Right.Children.Add(btn_Start);
+            Btn_Start.EnterStory(1.15, () => IsHitTestVisible = true);
+            Grid.SetRow(Btn_Start, 1);
+            Grid_Right.Children.Add(Btn_Start);
         }
 
         private void initBeater()

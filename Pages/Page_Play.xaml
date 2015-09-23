@@ -313,6 +313,7 @@
                     <ctrl:Ctrl_Difficulty Canvas.Left="593" Canvas.Top="294" GroupName="Difficulty" Text="Normal" Foreground="Gold"/>
                     <ctrl:Ctrl_Difficulty Canvas.Left="843" Canvas.Top="294" GroupName="Difficulty" Text="Hard" Foreground="Tomato"/>
                 </Canvas>
+                
                 <Grid Grid.Column="0" x:Name="Grid_Left" Background="#7F000000" RenderTransformOrigin=".5 .5">
                     <Grid.RenderTransform>
                         <TranslateTransform/>
@@ -347,9 +348,13 @@
                         <RowDefinition Height="4*"/>
                         <RowDefinition Height="9*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock x:Name="Tbx_Lottery" Foreground="White" FontSize="60" TextAlignment="Center" VerticalAlignment="Center" Text="登記完成"/>
+                    <!--<TextBlock x:Name="Tbx_Lottery" Foreground="White" FontSize="60" TextAlignment="Center" VerticalAlignment="Center" Text="登記完成"/>
                     <TextBlock Grid.RowSpan="2" x:Name="Tbx_Info" Foreground="White" FontSize="40" TextAlignment="Center" VerticalAlignment="Center">
                         資訊管理系　張O瑜同學　你好<LineBreak/>活動結束後將進行天梯結算<LineBreak/>前100名的同學即可獲得禮券<LineBreak/>歡迎持續挑戰追求更高的分數！
+                    </TextBlock>-->
+                    <TextBlock x:Name="Tbx_Lottery" Foreground="White" FontSize="60" TextAlignment="Center" VerticalAlignment="Center" Text="完成"/>
+                    <TextBlock Grid.RowSpan="2" x:Name="Tbx_Info" Foreground="White" FontSize="40" TextAlignment="Center" VerticalAlignment="Center">
+                        目前為Preview版本<LineBreak/>天梯模式尚未開放<LineBreak/>歡迎開放後再次挑戰！
                     </TextBlock>
                 </Grid>
                 <Grid Grid.Column="2" x:Name="Grid_Right" Background="#7F000000" RenderTransformOrigin=".5 .5">
@@ -361,11 +366,19 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Image Grid.Row="0" x:Name="Img_UserView" Stretch="UniformToFill"/>
+                    <Viewbox Grid.Row="0" Width="285" Height="236">
+                        <Image x:Name="Img_UserView" Stretch="UniformToFill"/>
+                    </Viewbox>
                     <ctrl:Ctrl_Difficulty Grid.Row="1" x:Name="Btn_Extra" Text="Start" Foreground="White"/>
                     <TextBlock Grid.Row="2" x:Name="Tbx_Timer" Style="{StaticResource ResourceKey=Tbx_Right}" Text="15"/>
                 </Grid>
+                <TextBlock Name="Tbx_L" Grid.Column="0" FontSize="30" Foreground="White" Text="X:0 Y:0" HorizontalAlignment="Center" VerticalAlignment="Bottom" IsHitTestVisible="False"/>
+                <TextBlock Name="Tbx_R" Grid.Column="2" FontSize="30" Foreground="White" Text="X:0 Y:0" HorizontalAlignment="Center" VerticalAlignment="Bottom" IsHitTestVisible="False"/>
             </Grid>
+            <Canvas Name="Canvas_Pointer" Grid.ColumnSpan="3" Width="1366" Height="768">
+                <Image Name="PointerFirst" Width="50" Height="50" Source="/Cycubeat;component/Materials/PointerFirst.png"/>
+                <Image Name="PointerSecond" Width="50" Height="50" Source="/Cycubeat;component/Materials/PointerSecond.png"/>
+            </Canvas>
         </Grid>
     </Viewbox>
 </UserControl>

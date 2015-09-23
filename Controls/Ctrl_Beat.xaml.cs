@@ -126,20 +126,23 @@ namespace Cycubeat.Controls
 
         private void click(object sender, RoutedEventArgs e)
         {
-            isClicked = true;
-            Btn_Beat.IsHitTestVisible = false;
-            perfectBeatTimer.Enabled = false;
-            if (!isPerfect)
+            if (!isClicked)
             {
-                Tbx_Beat.Text = "";
-                BeatEvent(1000);
-                StoryHandler.Begin(this, "Beat", () => PopEvent());
-            }
-            else
-            {
-                Tbx_Beat.Text = "Perfect";
-                BeatEvent(2000);
-                StoryHandler.Begin(this, "PerfectBeat", () => PopEvent());
+                Btn_Beat.IsHitTestVisible = false;
+                perfectBeatTimer.Enabled = false;
+                if (!isPerfect)
+                {
+                    Tbx_Beat.Text = "";
+                    BeatEvent(1000);
+                    StoryHandler.Begin(this, "Beat", () => PopEvent());
+                }
+                else
+                {
+                    Tbx_Beat.Text = "Perfect";
+                    BeatEvent(2000);
+                    StoryHandler.Begin(this, "PerfectBeat", () => PopEvent());
+                }
+                isClicked = true;
             }
         }
     }

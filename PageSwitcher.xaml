@@ -6,15 +6,17 @@
         xmlns:local="clr-namespace:Cycubeat"
         mc:Ignorable="d"
         Title="Cycubeat" d:DesignWidth="1366" d:DesignHeight="768"
-        Width="{Binding SystemParameters.PrimaryScreenHeight}" Height="{Binding SystemParameters.PrimaryScreenHeight}"
-        ResizeMode="NoResize" WindowStyle="None" WindowState="Maximized" Background="Black">
+        Width="1366" Height="768"
+        Background="Black">
+        <!--Width="{Binding SystemParameters.PrimaryScreenHeight}" Height="{Binding SystemParameters.PrimaryScreenHeight}"
+        ResizeMode="NoResize" WindowStyle="None" WindowState="Maximized" Background="Black">-->
     <Viewbox>
-        <Grid>
+        <Grid Width="1366" Height="768">
             <ContentPresenter x:Name="Presenter"/>
-            <Canvas Name="Canvas_Pointer">
-                <Image Name="PointerFirst" Width="50" Height="50" Visibility="Collapsed" Source="Materials/PointerFirst.png"/>
-                <Image Name="PointerSecond" Width="50" Height="50" Visibility="Collapsed" Source="Materials/PointerSecond.png"/>
-            </Canvas>
+            <!--<Canvas Name="Canvas_Pointer" IsHitTestVisible="False" Visibility="Collapsed">
+                <Image Name="PointerFirst" Width="50" Height="50" Source="Materials/PointerFirst.png"/>
+                <Image Name="PointerSecond" Width="50" Height="50" Source="Materials/PointerSecond.png"/>
+            </Canvas>-->
         </Grid>
     </Viewbox>
 </Window>
