@@ -1,10 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
+using System.Resources;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Cycubeat.Pages;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Cycubeat
 {
@@ -26,11 +33,13 @@ namespace Cycubeat
 
     public partial class PageSwitcher : Window
     {
+        public JObject usersData;
+
         public List<int> TimingPoints;
 
         public List<int> HitPoints;
 
-        public WriteableBitmap bodyIndexBitmap = null;
+        private int gameTimes = 0;
 
         public PageSwitcher()
         {
@@ -38,6 +47,8 @@ namespace Cycubeat
             TimingPoints = new List<int>();
             HitPoints = new List<int>();
             readTimingPoints();
+            usersData = getUsersData();
+
             //var kinect = new KinectHandler();
             //kinect.BodyEvent += (b) => bodyIndexBitmap = b;
             //kinect.HandEvent += (l, r, iL, iR) =>
@@ -99,6 +110,12 @@ namespace Cycubeat
             //        }
             //    }
             //};
+
+            CompositionTarget.Rendering += (s, e) =>
+            {
+                gameTimes++;
+                updateCursor();
+            };
             Switcher.pageSwitcher = this;
             Switcher.Switch(new Page_Start());
         }
@@ -132,6 +149,36 @@ namespace Cycubeat
                     HitPoints.Add(Convert.ToInt32(line));
                 }
             }
+        }
+
+        private void updateCursor()
+        {
+            var pos = Mouse.GetPosition(Canvas_Pointer);
+            if (pos.X >= 0 && pos.Y >= 0)
+            {
+                Canvas.SetLeft(Cur, pos.X - 50);
+                Canvas.SetTop(Cur, pos.Y - 50);
+            }
+        }
+
+        private JObject getUsersData()
+        {
+            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Cycubeat.Assemblies.Data.json"))
+            using (var reader = new StreamReader(stream))
+            using (var jreader = new JsonTextReader(reader))
+            {
+                return new JsonSerializer().Deserialize<JObject>(jreader);
+            }
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Cur.Down();
+        }
+
+        private void Window_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Cur.Up();
         }
     }
 }

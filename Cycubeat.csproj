@@ -54,8 +54,16 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Kinect, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.Kinect.Wpf.Controls, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Kinect, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Kinect.Wpf.Controls, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
@@ -77,6 +85,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\Ctrl_Cursor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Ctrl_Function.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -115,6 +127,9 @@
     <Compile Include="Common\StoryHandler.cs" />
     <Compile Include="Common\Switcher.cs" />
     <Compile Include="Common\TouchEventArgs.cs" />
+    <Compile Include="Controls\Ctrl_Cursor.xaml.cs">
+      <DependentUpon>Ctrl_Cursor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Ctrl_Function.xaml.cs">
       <DependentUpon>Ctrl_Function.xaml</DependentUpon>
     </Compile>
@@ -174,10 +189,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Assemblies\Data.json" />
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -205,6 +222,16 @@
   <ItemGroup>
     <Resource Include="Materials\PointerFirst.png" />
     <Resource Include="Materials\PointerSecond.png" />
+    <Resource Include="Materials\Cursor.png" />
+    <Resource Include="Materials\CursorCenter.png" />
+    <EmbeddedResource Include="Assemblies\Newtonsoft.Json.dll" />
+    <EmbeddedResource Include="Assemblies\Microsoft.Kinect.dll" />
+    <EmbeddedResource Include="Assemblies\Microsoft.Kinect.Wpf.Controls.dll" />
+    <Resource Include="Materials\StudentData.png" />
+    <Resource Include="Materials\Rank.png" />
+    <Resource Include="Materials\Rank_A.png" />
+    <Resource Include="Materials\Rank_B.png" />
+    <Resource Include="Materials\Rank_S.png" />
     <Content Include="Music\Start.wav" />
     <Resource Include="Materials\StudentID.png" />
     <Content Include="Music\BGM.mp3">
@@ -212,9 +239,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Materials\Choose.png" />
-    <Resource Include="Materials\Difficulty.png" />
-    <Resource Include="Materials\Highest.png" />
     <Resource Include="Materials\PlayGround.jpg" />
     <Resource Include="Materials\Score.png" />
     <Resource Include="Materials\StartGround.jpg" />

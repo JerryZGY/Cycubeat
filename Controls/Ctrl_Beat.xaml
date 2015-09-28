@@ -199,7 +199,7 @@
             </DoubleAnimationUsingKeyFrames>
             <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="Eps_Effect">
                 <EasingColorKeyFrame KeyTime="0" Value="Red"/>
-                <EasingColorKeyFrame KeyTime="0:0:0.3" Value="Purple"/>
+                <EasingColorKeyFrame KeyTime="0:0:0.3" Value="Black"/>
             </ColorAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Tbx_Beat">
                 <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
@@ -281,7 +281,7 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
-    <Grid x:Name="Grid_Main" Background="#7F000000" Width="180" Height="180">
+    <Grid x:Name="Grid_Main" Background="#7FFFFFFF" Width="180" Height="180">
         <Ellipse x:Name="Eps_Effect" Fill="Red" RenderTransformOrigin=".5 .5">
             <Ellipse.RenderTransform>
                 <ScaleTransform/>

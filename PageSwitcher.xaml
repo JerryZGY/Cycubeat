@@ -3,20 +3,22 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ctrl="clr-namespace:Cycubeat.Controls"
         xmlns:local="clr-namespace:Cycubeat"
         mc:Ignorable="d"
         Title="Cycubeat" d:DesignWidth="1366" d:DesignHeight="768"
-        Width="1366" Height="768"
-        Background="Black">
-        <!--Width="{Binding SystemParameters.PrimaryScreenHeight}" Height="{Binding SystemParameters.PrimaryScreenHeight}"
-        ResizeMode="NoResize" WindowStyle="None" WindowState="Maximized" Background="Black">-->
+        Width="{Binding SystemParameters.PrimaryScreenHeight}" Height="{Binding SystemParameters.PrimaryScreenHeight}"
+        ResizeMode="NoResize" WindowStyle="None" WindowState="Maximized" Background="Black"
+        Cursor="None" PreviewMouseDown="Window_MouseDown" PreviewMouseUp="Window_MouseUp">
+        <!--Width="1366" Height="768"
+        Background="Black" Cursor="None" PreviewMouseDown="Window_MouseDown" PreviewMouseUp="Window_MouseUp">-->
     <Viewbox>
         <Grid Width="1366" Height="768">
             <ContentPresenter x:Name="Presenter"/>
-            <!--<Canvas Name="Canvas_Pointer" IsHitTestVisible="False" Visibility="Collapsed">
-                <Image Name="PointerFirst" Width="50" Height="50" Source="Materials/PointerFirst.png"/>
-                <Image Name="PointerSecond" Width="50" Height="50" Source="Materials/PointerSecond.png"/>
-            </Canvas>-->
+            <Canvas x:Name="Canvas_Pointer" IsHitTestVisible="False" Width="1366" Height="768">
+                <ctrl:Ctrl_Cursor x:Name="Cur" Canvas.Left="633" Canvas.Top="334"/>
+            </Canvas>
+            <!--<TextBlock x:Name="Tbx_GameTimes" Foreground="White" FontSize="40" Text="Game Times: 00:00:00" IsHitTestVisible="False"/>-->
         </Grid>
     </Viewbox>
 </Window>

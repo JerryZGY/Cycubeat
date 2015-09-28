@@ -127,13 +127,13 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
-    <Grid x:Name="Grid_Main" Background="#7F000000" Width="180" Height="180">
+    <Grid x:Name="Grid_Main" Background="#7FFFFFFF" Width="180" Height="180">
         <Ellipse x:Name="Eps_Effect" Fill="Red" RenderTransformOrigin=".5 .5">
             <Ellipse.RenderTransform>
                 <ScaleTransform/>
             </Ellipse.RenderTransform>
         </Ellipse>
-        <TextBlock x:Name="Tbx_Function" Text="{Binding Text}" FontSize="35" Foreground="Gray" FontWeight="Bold" FontFamily="Viner Hand ITC" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin=".5 .5" Margin="0 10 0 0">
+        <TextBlock x:Name="Tbx_Function" Text="{Binding Text}" FontSize="35" Foreground="White" FontWeight="Bold" FontFamily="Viner Hand ITC" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin=".5 .5" Margin="0 10 0 0">
             <TextBlock.RenderTransform>
                 <ScaleTransform/>
             </TextBlock.RenderTransform>

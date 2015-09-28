@@ -120,7 +120,7 @@ namespace Cycubeat.Controls
 
         private void perfectBeatTimer_Tick(object sender, EventArgs e)
         {
-            isPerfect = (perfectTimes >= 2 && perfectTimes <= 4);
+            isPerfect = (perfectTimes == 3);
             perfectTimes++;
         }
 
@@ -132,8 +132,7 @@ namespace Cycubeat.Controls
                 perfectBeatTimer.Enabled = false;
                 if (!isPerfect)
                 {
-                    Tbx_Beat.Text = "";
-                    BeatEvent(1000);
+                    Tbx_Beat.Text = "Miss";
                     StoryHandler.Begin(this, "Beat", () => PopEvent());
                 }
                 else

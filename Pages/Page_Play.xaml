@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:ctrl="clr-namespace:Cycubeat.Controls"
              mc:Ignorable="d"
-             d:DesignWidth="1366" d:DesignHeight="768" Loaded="loaded" IsHitTestVisible="False">
+             d:DesignWidth="1366" d:DesignHeight="768" Loaded="loaded" IsHitTestVisible="True">
     <UserControl.Resources>
         <Storyboard x:Key="Enter">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(Brush.RelativeTransform).(ScaleTransform.ScaleX)" Storyboard.TargetName="Grid_Main">
@@ -33,15 +33,6 @@
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Grid_Left">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuarticEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Grid_Right">
                 <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1">
@@ -81,144 +72,6 @@
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
-        <Style x:Key="Tbx_Difficulty" TargetType="{x:Type TextBlock}">
-            <Setter Property="TextWrapping" Value="NoWrap"/>
-            <Setter Property="TextTrimming" Value="None"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="62"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-        <Style x:Key="Img_LeftTop" TargetType="{x:Type Image}">
-            <Setter Property="FlowDirection" Value="LeftToRight"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="VerticalAlignment" Value="Top"/>
-            <Setter Property="Width" Value="195"/>
-            <Setter Property="Margin" Value="10 10 0 0"/>
-        </Style>
-        <Style x:Key="Img_LeftBottom" TargetType="{x:Type Image}">
-            <Setter Property="FlowDirection" Value="LeftToRight"/>
-            <Setter Property="HorizontalAlignment" Value="Right"/>
-            <Setter Property="VerticalAlignment" Value="Bottom"/>
-            <Setter Property="Width" Value="195"/>
-            <Setter Property="Margin" Value="0 0 10 10"/>
-        </Style>
-        <Style x:Key="Ctrl_Score" TargetType="{x:Type Control}">
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="-10 0 0 0"/>
-        </Style>
-        <Style x:Key="Tbx_Right" TargetType="{x:Type TextBlock}">
-            <Setter Property="TextWrapping" Value="NoWrap"/>
-            <Setter Property="TextTrimming" Value="None"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="76"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="FontFamily" Value="Vivaldi"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-        <Storyboard x:Key="StartEnter">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Img_Choose">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuarticEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Img_Difficulty">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuarticEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Img_Highest">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuarticEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Img_Score">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuarticEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Tbx_Difficulty">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuarticEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Ctrl_Score">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuarticEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="StartExit">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Img_Difficulty">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuarticEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Img_Score">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuarticEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Tbx_Difficulty">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuarticEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Ctrl_Score">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuarticEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="Shine" AutoReverse="True" RepeatBehavior="Forever">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Img_BackgroundShine">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="0.5">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuarticEase EasingMode="EaseInOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" Storyboard.TargetName="Img_BackgroundShine">
-                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="1.02">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuarticEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" Storyboard.TargetName="Img_BackgroundShine">
-                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="1.02">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuarticEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
         <Storyboard x:Key="EnterResult">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Grid_Result">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
@@ -236,14 +89,28 @@
                     </EasingDoubleKeyFrame.EasingFunction>
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Img_Difficulty">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Img_Score">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
                     <EasingDoubleKeyFrame.EasingFunction>
                         <QuarticEase EasingMode="EaseOut"/>
                     </EasingDoubleKeyFrame.EasingFunction>
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Tbx_Difficulty">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Ctrl_Score">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Img_Rank">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Img_RankIcon">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
                     <EasingDoubleKeyFrame.EasingFunction>
                         <QuarticEase EasingMode="EaseOut"/>
@@ -266,6 +133,22 @@
                     </EasingDoubleKeyFrame.EasingFunction>
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Img_StudentData">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Tbx_StudentData">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="EnterLottery">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Grid_Lottery">
@@ -276,15 +159,56 @@
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
+        <Style x:Key="Img_Left" TargetType="{x:Type Image}">
+            <Setter Property="FlowDirection" Value="LeftToRight"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="200"/>
+        </Style>
+        <Style x:Key="Ctrl_Score" TargetType="{x:Type Control}">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="-10 0 0 0"/>
+        </Style>
+        <Style x:Key="Tbx_Accuracy" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="TextTrimming" Value="None"/>
+            <Setter Property="Foreground" Value="GreenYellow"/>
+            <Setter Property="FontSize" Value="62"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontFamily" Value="Viner Hand ITC"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
         <Style x:Key="Tbx_StudentID" TargetType="{x:Type TextBlock}">
             <Setter Property="TextWrapping" Value="NoWrap"/>
             <Setter Property="TextTrimming" Value="None"/>
             <Setter Property="Foreground" Value="GreenYellow"/>
-            <Setter Property="FontSize" Value="60"/>
+            <Setter Property="FontSize" Value="70"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontFamily" Value="Vivaldi"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="-10 0 0 0"/>
+        </Style>
+        <Style x:Key="Tbx_UserData" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="TextTrimming" Value="None"/>
+            <Setter Property="Foreground" Value="GreenYellow"/>
+            <Setter Property="FontSize" Value="33"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="Tbx_Timer" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="TextTrimming" Value="None"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="76"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontFamily" Value="Vivaldi"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="-10 10 0 0"/>
         </Style>
     </UserControl.Resources>
     <Viewbox>
@@ -302,19 +226,14 @@
                 </Image.RenderTransform>
             </Image>
             <ctrl:Ctrl_Music x:Name="Ctrl_Music"/>
-            <Grid x:Name="Grid_Foreground">
+            <Grid x:Name="Grid_Foreground" Background="#7F000000">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="2.8*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Canvas x:Name="Cnv_Main" Grid.ColumnSpan="3" Width="1366" Height="768">
-                    <ctrl:Ctrl_Difficulty Canvas.Left="343" Canvas.Top="294" GroupName="Difficulty" Text="Easy" Foreground="GreenYellow"/>
-                    <ctrl:Ctrl_Difficulty Canvas.Left="593" Canvas.Top="294" GroupName="Difficulty" Text="Normal" Foreground="Gold"/>
-                    <ctrl:Ctrl_Difficulty Canvas.Left="843" Canvas.Top="294" GroupName="Difficulty" Text="Hard" Foreground="Tomato"/>
-                </Canvas>
-                
-                <Grid Grid.Column="0" x:Name="Grid_Left" Background="#7F000000" RenderTransformOrigin=".5 .5">
+                <Canvas x:Name="Cnv_Main" Grid.ColumnSpan="3" Width="1366" Height="768"/>
+                <Grid Grid.Column="0" x:Name="Grid_Left" RenderTransformOrigin=".5 .5">
                     <Grid.RenderTransform>
                         <TranslateTransform/>
                     </Grid.RenderTransform>
@@ -323,17 +242,25 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Image Grid.Row="0" x:Name="Img_StudentID" Source="/Cycubeat;component/Materials/StudentID.png" Opacity="0"/>
-                    <Image Grid.Row="0" x:Name="Img_Choose" Style="{StaticResource ResourceKey=Img_LeftTop}" Source="/Cycubeat;component/Materials/Choose.png"/>
-                    <Image Grid.Row="0" x:Name="Img_Difficulty" Style="{StaticResource ResourceKey=Img_LeftBottom}" Source="/Cycubeat;component/Materials/Difficulty.png"/>
-                    <TextBlock Grid.Row="1" x:Name="Tbx_StudentID" Style="{StaticResource ResourceKey=Tbx_StudentID}" Text="" Opacity="0"/>
-                    <TextBlock Grid.Row="1" x:Name="Tbx_Difficulty" Style="{StaticResource ResourceKey=Tbx_Difficulty}" Text="Easy" FontFamily="Viner Hand ITC" Foreground="GreenYellow"/>
-                    <Image Grid.Row="2" x:Name="Img_Highest" Style="{StaticResource ResourceKey=Img_LeftTop}" Source="/Cycubeat;component/Materials/Highest.png"/>
-                    <Image Grid.Row="2" x:Name="Img_Score" Style="{StaticResource ResourceKey=Img_LeftBottom}" Source="/Cycubeat;component/Materials/Score.png"/>
-                    <ctrl:Ctrl_Score Grid.Row="3" x:Name="Ctrl_Score" Style="{StaticResource ResourceKey=Ctrl_Score}"/>
+                    <Image Grid.Row="0" x:Name="Img_Score" Style="{StaticResource ResourceKey=Img_Left}" Source="/Cycubeat;component/Materials/Score.png"/>
+                    <ctrl:Ctrl_Score Grid.Row="1" x:Name="Ctrl_Score" Style="{StaticResource ResourceKey=Ctrl_Score}"/>
+                    <Image Grid.Row="0" x:Name="Img_StudentID" Style="{StaticResource ResourceKey=Img_Left}" Width="285" Source="/Cycubeat;component/Materials/StudentID.png" Opacity="0"/>
+                    <TextBlock Grid.Row="1" x:Name="Tbx_StudentID" Style="{StaticResource ResourceKey=Tbx_StudentID}" Opacity="0"/>
+                    <Image Grid.Row="2" x:Name="Img_Rank" Style="{StaticResource ResourceKey=Img_Left}" Source="/Cycubeat;component/Materials/Rank.png"/>
+                    <Image Grid.Row="3" x:Name="Img_RankIcon" Style="{StaticResource ResourceKey=Img_Left}" Source="/Cycubeat;component/Materials/Rank_B.png"/>
+                    <Image Grid.Row="2" x:Name="Img_StudentData" Style="{StaticResource ResourceKey=Img_Left}" Width="285" Source="/Cycubeat;component/Materials/StudentData.png" Opacity="0"/>
+                    <TextBlock Grid.Row="3" x:Name="Tbx_StudentData" Style="{StaticResource ResourceKey=Tbx_UserData}" Text="無資料" FontSize="33" Opacity="0"/>
+                    <TextBlock Grid.Row="4" x:Name="Tbx_Timer" Style="{StaticResource ResourceKey=Tbx_Timer}" Text="40"/>
+                    <StackPanel Grid.Row="5" Width="285" Height="160" Background="Black"/>
+                    <Border Grid.Row="5" BorderThickness="1" BorderBrush="White" Width="285" Height="160"/>
+                    <Viewbox Grid.Row="5" Width="285" Height="160" Margin="0 0 0 20">
+                        <Image x:Name="Img_UserView" Stretch="UniformToFill"/>
+                    </Viewbox>
                 </Grid>
-                <Grid Grid.Column="1" x:Name="Grid_Result" Background="#7F000000" IsHitTestVisible="False" Opacity="0">
+                <Grid Grid.Column="1" x:Name="Grid_Result" IsHitTestVisible="False" Opacity="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="4*"/>
                         <RowDefinition Height="9*"/>
@@ -343,39 +270,20 @@
                         恭喜你通過挑戰門檻！<LineBreak/>輸入學號以參加天梯排行<LineBreak/>有機會獲得西堤禮券哦～
                     </TextBlock>
                 </Grid>
-                <Grid Grid.Column="1" x:Name="Grid_Lottery" Background="#7F000000" IsHitTestVisible="False" Opacity="0">
+                <Grid Grid.Column="1" x:Name="Grid_Lottery" IsHitTestVisible="False" Opacity="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="4*"/>
                         <RowDefinition Height="9*"/>
                     </Grid.RowDefinitions>
-                    <!--<TextBlock x:Name="Tbx_Lottery" Foreground="White" FontSize="60" TextAlignment="Center" VerticalAlignment="Center" Text="登記完成"/>
+                    <TextBlock x:Name="Tbx_Lottery" Foreground="White" FontSize="60" TextAlignment="Center" VerticalAlignment="Center" Text="登記完成"/>
                     <TextBlock Grid.RowSpan="2" x:Name="Tbx_Info" Foreground="White" FontSize="40" TextAlignment="Center" VerticalAlignment="Center">
-                        資訊管理系　張O瑜同學　你好<LineBreak/>活動結束後將進行天梯結算<LineBreak/>前100名的同學即可獲得禮券<LineBreak/>歡迎持續挑戰追求更高的分數！
-                    </TextBlock>-->
-                    <TextBlock x:Name="Tbx_Lottery" Foreground="White" FontSize="60" TextAlignment="Center" VerticalAlignment="Center" Text="完成"/>
-                    <TextBlock Grid.RowSpan="2" x:Name="Tbx_Info" Foreground="White" FontSize="40" TextAlignment="Center" VerticalAlignment="Center">
-                        目前為Preview版本<LineBreak/>天梯模式尚未開放<LineBreak/>歡迎開放後再次挑戰！
+                        資管四甲　張同學　你好<LineBreak/>活動結束後將進行天梯結算<LineBreak/>前100名的同學即可獲得禮券<LineBreak/>歡迎持續挑戰追求更高的分數！
                     </TextBlock>
                 </Grid>
-                <Grid Grid.Column="2" x:Name="Grid_Right" Background="#7F000000" RenderTransformOrigin=".5 .5">
-                    <Grid.RenderTransform>
-                        <TranslateTransform/>
-                    </Grid.RenderTransform>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Viewbox Grid.Row="0" Width="285" Height="236">
-                        <Image x:Name="Img_UserView" Stretch="UniformToFill"/>
-                    </Viewbox>
-                    <ctrl:Ctrl_Difficulty Grid.Row="1" x:Name="Btn_Extra" Text="Start" Foreground="White"/>
-                    <TextBlock Grid.Row="2" x:Name="Tbx_Timer" Style="{StaticResource ResourceKey=Tbx_Right}" Text="15"/>
-                </Grid>
-                <TextBlock Name="Tbx_L" Grid.Column="0" FontSize="30" Foreground="White" Text="X:0 Y:0" HorizontalAlignment="Center" VerticalAlignment="Bottom" IsHitTestVisible="False"/>
-                <TextBlock Name="Tbx_R" Grid.Column="2" FontSize="30" Foreground="White" Text="X:0 Y:0" HorizontalAlignment="Center" VerticalAlignment="Bottom" IsHitTestVisible="False"/>
+                <TextBlock Name="Tbx_L" Grid.Column="0" FontSize="20" Foreground="White" Text="X:0 Y:0" HorizontalAlignment="Center" VerticalAlignment="Bottom" IsHitTestVisible="False" Visibility="Collapsed"/>
+                <TextBlock Name="Tbx_R" Grid.Column="2" FontSize="20" Foreground="White" Text="X:0 Y:0" HorizontalAlignment="Center" VerticalAlignment="Bottom" IsHitTestVisible="False" Visibility="Collapsed"/>
             </Grid>
-            <Canvas Name="Canvas_Pointer" Grid.ColumnSpan="3" Width="1366" Height="768">
+            <Canvas Name="Canvas_Pointer" Grid.ColumnSpan="3" Width="1366" Height="768" Visibility="Collapsed">
                 <Image Name="PointerFirst" Width="50" Height="50" Source="/Cycubeat;component/Materials/PointerFirst.png"/>
                 <Image Name="PointerSecond" Width="50" Height="50" Source="/Cycubeat;component/Materials/PointerSecond.png"/>
             </Canvas>

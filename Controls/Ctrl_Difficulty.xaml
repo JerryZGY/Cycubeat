@@ -142,8 +142,8 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
-    <Grid x:Name="Grid_Main" Background="#7F000000" Width="180" Height="180">
-        <Ellipse x:Name="Eps_Effect" Fill="Gray" RenderTransformOrigin=".5 .5">
+    <Grid x:Name="Grid_Main" Background="#7FFFFFFF" Width="180" Height="180">
+        <Ellipse x:Name="Eps_Effect" Fill="Navy" RenderTransformOrigin=".5 .5">
             <Ellipse.RenderTransform>
                 <ScaleTransform ScaleY="0.8" ScaleX="0.8"/>
             </Ellipse.RenderTransform>
