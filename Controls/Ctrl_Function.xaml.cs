@@ -66,11 +66,16 @@ namespace Cycubeat.Controls
         private void mouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             StoryHandler.Begin(this, "MouseExit");
+            //IsHitTestVisible = true;
         }
 
         private void click(object sender, RoutedEventArgs e)
         {
-            FuncEvent();
+            if (IsHitTestVisible)
+            {
+                IsHitTestVisible = false;
+                FuncEvent();
+            }
         }
     }
 }

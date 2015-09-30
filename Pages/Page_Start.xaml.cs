@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -33,6 +34,23 @@ namespace Cycubeat.Pages
             Img_Title.Opacity = 0;
             Tbx_Copyright.Opacity = 0;
             initRect();
+            Switcher.pageSwitcher.TouchEvent += touchEvent;
+            Switcher.pageSwitcher.Bounds = Switcher.pageSwitcher.Map.StartMap;
+        }
+
+        private void touchEvent(KinectInputArgs e)
+        {
+            var leave = new MouseEventArgs(Mouse.PrimaryDevice, 0) { RoutedEvent = Mouse.MouseLeaveEvent };
+            var enter = new MouseEventArgs(Mouse.PrimaryDevice, 0) { RoutedEvent = Mouse.MouseEnterEvent };
+            TouchMapHandler.CheckTouch(e.Posotion, (e.InputState == InputState.Open),
+                () => { Btn_Start.RaiseEvent(leave); },
+                () => { Btn_Start.RaiseEvent(enter); },
+                () =>
+                {
+                    if (Btn_Start.IsHitTestVisible)
+                        Btn_Start.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                }
+            );
         }
 
         private const double size = 100;

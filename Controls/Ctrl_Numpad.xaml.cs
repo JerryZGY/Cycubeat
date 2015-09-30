@@ -69,7 +69,11 @@ namespace Cycubeat.Controls
 
         private void click(object sender, RoutedEventArgs e)
         {
-            NumEvent(Convert.ToInt32(Text));
+            if (IsHitTestVisible)
+            {
+                IsHitTestVisible = false;
+                NumEvent(Convert.ToInt32(Text));
+            }
         }
     }
 }

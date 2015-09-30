@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:ctrl="clr-namespace:Cycubeat.Controls"
              mc:Ignorable="d"
-             d:DesignWidth="1366" d:DesignHeight="768" Loaded="loaded" IsHitTestVisible="True">
+             d:DesignWidth="1366" d:DesignHeight="768" Loaded="loaded" IsHitTestVisible="True" KeyDown="UserControl_KeyDown">
     <UserControl.Resources>
         <Storyboard x:Key="Enter">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(Brush.RelativeTransform).(ScaleTransform.ScaleX)" Storyboard.TargetName="Grid_Main">
@@ -220,11 +220,6 @@
                     </ImageBrush.RelativeTransform>
                 </ImageBrush>
             </Grid.Background>
-            <Image x:Name="Img_BackgroundShine" Source="/Cycubeat;component/Materials/PlayGround.jpg" Opacity="0" RenderTransformOrigin=".5 .5">
-                <Image.RenderTransform>
-                    <ScaleTransform/>
-                </Image.RenderTransform>
-            </Image>
             <ctrl:Ctrl_Music x:Name="Ctrl_Music"/>
             <Grid x:Name="Grid_Foreground" Background="#7F000000">
                 <Grid.ColumnDefinitions>
@@ -254,38 +249,39 @@
                     <Image Grid.Row="2" x:Name="Img_StudentData" Style="{StaticResource ResourceKey=Img_Left}" Width="285" Source="/Cycubeat;component/Materials/StudentData.png" Opacity="0"/>
                     <TextBlock Grid.Row="3" x:Name="Tbx_StudentData" Style="{StaticResource ResourceKey=Tbx_UserData}" Text="無資料" FontSize="33" Opacity="0"/>
                     <TextBlock Grid.Row="4" x:Name="Tbx_Timer" Style="{StaticResource ResourceKey=Tbx_Timer}" Text="40"/>
-                    <StackPanel Grid.Row="5" Width="285" Height="160" Background="Black"/>
-                    <Border Grid.Row="5" BorderThickness="1" BorderBrush="White" Width="285" Height="160"/>
-                    <Viewbox Grid.Row="5" Width="285" Height="160" Margin="0 0 0 20">
-                        <Image x:Name="Img_UserView" Stretch="UniformToFill"/>
-                    </Viewbox>
+                    <Image x:Name="Img_UserView" Grid.Row="5" Stretch="UniformToFill" Width="285" Height="160" Margin="0 0 0 20"/>
+                    <Border Grid.Row="5" BorderThickness="1" BorderBrush="White" Width="285" Height="160" Margin="0 0 0 20"/>
                 </Grid>
                 <Grid Grid.Column="1" x:Name="Grid_Result" IsHitTestVisible="False" Opacity="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="4*"/>
-                        <RowDefinition Height="9*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <TextBlock x:Name="Tbx_Subtitle" Foreground="White" FontSize="60" TextAlignment="Center" VerticalAlignment="Center" Text="挑戰成功"/>
-                    <TextBlock Grid.RowSpan="2" x:Name="Tbx_Cotent" Foreground="White" FontSize="40" TextAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Grid.Row="1" x:Name="Tbx_Cotent" Foreground="White" FontSize="40" TextAlignment="Center" VerticalAlignment="Center">
                         恭喜你通過挑戰門檻！<LineBreak/>輸入學號以參加天梯排行<LineBreak/>有機會獲得西堤禮券哦～
                     </TextBlock>
+                    <Image x:Name="Img_Content" Grid.Row="2" Width="180" Source="/Cycubeat;component/Materials/Win.png"/>
                 </Grid>
                 <Grid Grid.Column="1" x:Name="Grid_Lottery" IsHitTestVisible="False" Opacity="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="4*"/>
-                        <RowDefinition Height="9*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <TextBlock x:Name="Tbx_Lottery" Foreground="White" FontSize="60" TextAlignment="Center" VerticalAlignment="Center" Text="登記完成"/>
-                    <TextBlock Grid.RowSpan="2" x:Name="Tbx_Info" Foreground="White" FontSize="40" TextAlignment="Center" VerticalAlignment="Center">
-                        資管四甲　張同學　你好<LineBreak/>活動結束後將進行天梯結算<LineBreak/>前100名的同學即可獲得禮券<LineBreak/>歡迎持續挑戰追求更高的分數！
-                    </TextBlock>
+                    <TextBlock Grid.Row="1" x:Name="Tbx_Info" Foreground="White" FontSize="40" TextAlignment="Center" VerticalAlignment="Center"/>
+                        <!--資管四甲　張同學　你好<LineBreak/>活動結束後將進行天梯結算<LineBreak/>前100名的同學即可獲得禮券<LineBreak/>歡迎持續挑戰追求更高的分數！
+                    </TextBlock>-->
+                    <Image x:Name="Img_Info" Grid.Row="2" Width="180" Source="/Cycubeat;component/Materials/Win.png"/>
                 </Grid>
                 <TextBlock Name="Tbx_L" Grid.Column="0" FontSize="20" Foreground="White" Text="X:0 Y:0" HorizontalAlignment="Center" VerticalAlignment="Bottom" IsHitTestVisible="False" Visibility="Collapsed"/>
                 <TextBlock Name="Tbx_R" Grid.Column="2" FontSize="20" Foreground="White" Text="X:0 Y:0" HorizontalAlignment="Center" VerticalAlignment="Bottom" IsHitTestVisible="False" Visibility="Collapsed"/>
             </Grid>
-            <Canvas Name="Canvas_Pointer" Grid.ColumnSpan="3" Width="1366" Height="768" Visibility="Collapsed">
-                <Image Name="PointerFirst" Width="50" Height="50" Source="/Cycubeat;component/Materials/PointerFirst.png"/>
-                <Image Name="PointerSecond" Width="50" Height="50" Source="/Cycubeat;component/Materials/PointerSecond.png"/>
+            <Canvas Name="Canvas_Pointer" Grid.ColumnSpan="3" Width="1366" Height="768">
+                <Image Name="Cur_Main" Width="100" Height="100" Source="/Cycubeat;component/Materials/PointerFirst.png"/>
+                <Image Name="Cur_Sub" Width="100" Height="100" Source="/Cycubeat;component/Materials/PointerSecond.png"/>
             </Canvas>
         </Grid>
     </Viewbox>

@@ -124,9 +124,11 @@
     <Compile Include="Common\ITouchable.cs" />
     <Compile Include="Common\ISwitchable.cs" />
     <Compile Include="Common\KinectHandler.cs" />
+    <Compile Include="Common\KinectInput.cs" />
+    <Compile Include="Common\ScoreDataHandler.cs" />
+    <Compile Include="Common\SoundHandler.cs" />
     <Compile Include="Common\StoryHandler.cs" />
     <Compile Include="Common\Switcher.cs" />
-    <Compile Include="Common\TouchEventArgs.cs" />
     <Compile Include="Controls\Ctrl_Cursor.xaml.cs">
       <DependentUpon>Ctrl_Cursor.xaml</DependentUpon>
     </Compile>
@@ -220,6 +222,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Sounds\Boo.wav" />
+    <Resource Include="Sounds\Cheer.wav" />
     <Resource Include="Materials\PointerFirst.png" />
     <Resource Include="Materials\PointerSecond.png" />
     <Resource Include="Materials\Cursor.png" />
@@ -232,6 +236,12 @@
     <Resource Include="Materials\Rank_A.png" />
     <Resource Include="Materials\Rank_B.png" />
     <Resource Include="Materials\Rank_S.png" />
+    <Resource Include="Materials\Miss.png" />
+    <Resource Include="Materials\Perfect.png" />
+    <Resource Include="Materials\Touch.png" />
+    <Resource Include="Materials\Lose.png" />
+    <Resource Include="Materials\Normal.png" />
+    <Resource Include="Materials\Win.png" />
     <Content Include="Music\Start.wav" />
     <Resource Include="Materials\StudentID.png" />
     <Content Include="Music\BGM.mp3">

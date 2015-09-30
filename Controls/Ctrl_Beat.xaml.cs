@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Cycubeat.Controls
 {
@@ -57,29 +58,14 @@ namespace Cycubeat.Controls
 
         public void StartBeat()
         {
-            Btn_Beat.IsHitTestVisible = true;
-            Tbx_Beat.Text = "Touch";
-            perfectTimes = 0;
-            isPerfect = false;
-            isClicked = false;
-            perfectBeatTimer.Enabled = true;
-            StoryHandler.Begin(this, "Peek", () =>
-            {
-                if (!isClicked)
-                {
-                    StoryHandler.Begin(this, "Pop", () =>
-                    {
-                        perfectBeatTimer.Enabled = false;
-                        Btn_Beat.IsHitTestVisible = false;
-                    });
-                }
-            });
+            StartBeat(() => { });
         }
 
         public void StartBeat(Action callback)
         {
+            IsHitTestVisible = true;
             Btn_Beat.IsHitTestVisible = true;
-            Tbx_Beat.Text = "Touch";
+            Img_Beat.Source = new BitmapImage(new Uri("/Cycubeat;component/Materials/Touch.png", UriKind.Relative));
             perfectTimes = 0;
             isPerfect = false;
             isClicked = false;
@@ -92,6 +78,7 @@ namespace Cycubeat.Controls
                     {
                         perfectBeatTimer.Enabled = false;
                         Btn_Beat.IsHitTestVisible = false;
+                        IsHitTestVisible = false;
                         callback();
                         PopEvent();
                     });
@@ -103,14 +90,15 @@ namespace Cycubeat.Controls
         {
             InitializeComponent();
             DataContext = this;
-            Tbx_Beat.Opacity = 0;
-            Tbx_Beat.RenderTransform = new ScaleTransform(0, 0);
+            Img_Beat.Opacity = 0;
+            Img_Beat.RenderTransform = new ScaleTransform(0, 0);
             Grid_Main.Opacity = 0;
             Eps_Effect.Opacity = 0;
             Eps_Effect.RenderTransform = new ScaleTransform(0, 0);
             Eps_Effect.Fill = new SolidColorBrush(Colors.Red);
             beatTimer.Tick += beatTimerTimer_Tick;
             perfectBeatTimer.Tick += perfectBeatTimer_Tick;
+            Btn_Beat.IsHitTestVisible = false;
         }
 
         private void beatTimerTimer_Tick(object sender, EventArgs e)
@@ -120,28 +108,32 @@ namespace Cycubeat.Controls
 
         private void perfectBeatTimer_Tick(object sender, EventArgs e)
         {
-            isPerfect = (perfectTimes == 3);
+            isPerfect = (perfectTimes >= 2 && perfectTimes <= 4);
             perfectTimes++;
         }
 
         private void click(object sender, RoutedEventArgs e)
         {
-            if (!isClicked)
+            if (Btn_Beat.IsHitTestVisible)
             {
+                IsHitTestVisible = false;
                 Btn_Beat.IsHitTestVisible = false;
-                perfectBeatTimer.Enabled = false;
-                if (!isPerfect)
+                if (!isClicked)
                 {
-                    Tbx_Beat.Text = "Miss";
-                    StoryHandler.Begin(this, "Beat", () => PopEvent());
+                    perfectBeatTimer.Enabled = false;
+                    if (!isPerfect)
+                    {
+                        Img_Beat.Source = new BitmapImage(new Uri("/Cycubeat;component/Materials/Miss.png", UriKind.Relative));
+                        StoryHandler.Begin(this, "Beat", () => PopEvent());
+                    }
+                    else
+                    {
+                        Img_Beat.Source = new BitmapImage(new Uri("/Cycubeat;component/Materials/Perfect.png", UriKind.Relative));
+                        BeatEvent(2000);
+                        StoryHandler.Begin(this, "PerfectBeat", () => PopEvent());
+                    }
+                    isClicked = true;
                 }
-                else
-                {
-                    Tbx_Beat.Text = "Perfect";
-                    BeatEvent(2000);
-                    StoryHandler.Begin(this, "PerfectBeat", () => PopEvent());
-                }
-                isClicked = true;
             }
         }
     }

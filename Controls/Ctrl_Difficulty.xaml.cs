@@ -88,8 +88,12 @@ namespace Cycubeat.Controls
 
         private void check(object sender, RoutedEventArgs e)
         {
-            TouchEvent();
-            isChecked = true;
+            if (IsHitTestVisible)
+            {
+                IsHitTestVisible = false;
+                TouchEvent();
+                isChecked = true;
+            }
         }
 
         private void uncheck(object sender, RoutedEventArgs e)

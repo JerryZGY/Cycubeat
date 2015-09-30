@@ -16,7 +16,7 @@
         <Grid Width="1366" Height="768">
             <ContentPresenter x:Name="Presenter"/>
             <Canvas x:Name="Canvas_Pointer" IsHitTestVisible="False" Width="1366" Height="768">
-                <ctrl:Ctrl_Cursor x:Name="Cur" Canvas.Left="633" Canvas.Top="334"/>
+                <ctrl:Ctrl_Cursor x:Name="Cur" Canvas.Left="633" Canvas.Top="334" IsHitTestVisible="False" Visibility="Collapsed"/>
             </Canvas>
             <!--<TextBlock x:Name="Tbx_GameTimes" Foreground="White" FontSize="40" Text="Game Times: 00:00:00" IsHitTestVisible="False"/>-->
         </Grid>
