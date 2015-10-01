@@ -145,9 +145,9 @@ namespace Cycubeat.Pages
 
         private SoundHandler snd;
 
-        private const int rank_A = 40000;
+        private const int rank_A = 30000;
 
-        private const int rank_S = 85000;
+        private const int rank_S = 70000;
 
         private bool isBeaterInit = false;
 
@@ -314,8 +314,8 @@ namespace Cycubeat.Pages
         private void initNumpad()
         {
             Switcher.pageSwitcher.Bounds = Switcher.pageSwitcher.Map.PlayMap_Numpad;
-            Tbx_Timer.Text = "40";
-            countdownTimes = 39;
+            Tbx_Timer.Text = "60";
+            countdownTimes = 59;
             countDownTimer.Enabled = true;
             for (int i = 0; i < numbers.Length; i++)
             {
