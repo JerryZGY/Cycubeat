@@ -6,5 +6,5 @@
              xmlns:local="clr-namespace:Cycubeat.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="50" Loaded="loaded" IsHitTestVisible="False" Visibility="Collapsed">
-    <MediaElement x:Name="Music" LoadedBehavior="Manual" UnloadedBehavior="Stop"/>
+    <MediaElement x:Name="Music" LoadedBehavior="Manual" UnloadedBehavior="Stop" Volume="1"/>
 </UserControl>

@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
 namespace Cycubeat.Pages
@@ -26,6 +27,7 @@ namespace Cycubeat.Pages
 
         public void ExitStory(Action callback)
         {
+            music.BeginAnimation(MediaElement.VolumeProperty, new DoubleAnimation(music.Volume, 0, TimeSpan.FromSeconds(2)));
             StoryHandler.Begin(this, "Exit", () => callback());
         }
 
@@ -40,7 +42,7 @@ namespace Cycubeat.Pages
             Switcher.pageSwitcher.Bounds = Switcher.pageSwitcher.Map.StartMap;
             refreshTimer.Tick += (s, e) => Switcher.pageSwitcher.kinect.TrackingBody = null;
             refreshTimer.Enabled = true;
-
+            music = new MusicHandler(Grid_Main, "Music/AnthemStart.wav").Music;
         }
 
         private void touchEvent(KinectInputArgs e)
@@ -57,6 +59,8 @@ namespace Cycubeat.Pages
                 }
             );
         }
+
+        private MediaElement music;
 
         private const double size = 100;
 
@@ -114,17 +118,6 @@ namespace Cycubeat.Pages
             refreshTimer.Enabled = false;
             refreshTimer.Stop();
             Switcher.Switch(new Page_Play());
-        }
-
-        private void Music_MediaOpened(object sender, RoutedEventArgs e)
-        {
-            Music.Play();
-        }
-
-        private void Music_MediaEnded(object sender, RoutedEventArgs e)
-        {
-            Music.Position = TimeSpan.Zero;
-            Music.Play();
         }
     }
 }

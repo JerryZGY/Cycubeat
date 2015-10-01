@@ -125,6 +125,7 @@
     <Compile Include="Common\ISwitchable.cs" />
     <Compile Include="Common\KinectHandler.cs" />
     <Compile Include="Common\KinectInput.cs" />
+    <Compile Include="Common\MusicHandler.cs" />
     <Compile Include="Common\ScoreDataHandler.cs" />
     <Compile Include="Common\SoundHandler.cs" />
     <Compile Include="Common\StoryHandler.cs" />
@@ -243,19 +244,21 @@
     <Resource Include="Materials\Normal.png" />
     <Resource Include="Materials\Win.png" />
     <Resource Include="Materials\Logo.png" />
-    <Content Include="Music\Start.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Resource Include="Materials\StudentID.png" />
-    <Content Include="Music\BGM.mp3">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Materials\PlayGround.jpg" />
     <Resource Include="Materials\Score.png" />
     <Resource Include="Materials\StartGround.jpg" />
     <Resource Include="Materials\Title.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Music\Anthem.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\AnthemStart.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
