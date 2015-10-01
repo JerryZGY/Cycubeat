@@ -31,11 +31,16 @@ namespace Cycubeat.Pages
 
         public void InitializeProperty()
         {
+            Img_Logo.Opacity = 0;
             Img_Title.Opacity = 0;
             Tbx_Copyright.Opacity = 0;
             initRect();
+            Switcher.pageSwitcher.kinect.TrackingBody = null;
             Switcher.pageSwitcher.TouchEvent += touchEvent;
             Switcher.pageSwitcher.Bounds = Switcher.pageSwitcher.Map.StartMap;
+            refreshTimer.Tick += (s, e) => Switcher.pageSwitcher.kinect.TrackingBody = null;
+            refreshTimer.Enabled = true;
+
         }
 
         private void touchEvent(KinectInputArgs e)
@@ -65,6 +70,8 @@ namespace Cycubeat.Pages
             "#FFA7A7A7","#FFA7A7A7","#FFA7A7A7","#FFA7A7A7",
             "#FFFFFFFF", "#FFFFFFFF", "#FFFFFFFF", "#FFFFFFFF"
         };
+
+        private System.Windows.Forms.Timer refreshTimer = new System.Windows.Forms.Timer() { Interval = 5000 };
 
         private static Point[] offsetMap =
         {
@@ -104,6 +111,8 @@ namespace Cycubeat.Pages
         private void Btn_Start_Click(object sender, RoutedEventArgs e)
         {
             Btn_Start.IsHitTestVisible = false;
+            refreshTimer.Enabled = false;
+            refreshTimer.Stop();
             Switcher.Switch(new Page_Play());
         }
 

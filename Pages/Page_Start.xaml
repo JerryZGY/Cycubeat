@@ -40,6 +40,7 @@
                 </Image>
                 <Button x:Name="Btn_Start" Style="{StaticResource ResourceKey=Btn_Start}" Click="Btn_Start_Click"/>
                 <TextBlock x:Name="Tbx_Copyright" Text="© 2015 JerryZ CYIM 24th" VerticalAlignment="Bottom" Foreground="White" FontFamily="Nirmala UI" FontSize="16" HorizontalAlignment="Center"/>
+                <Image x:Name="Img_Logo" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="400" Margin="10" Source="/Cycubeat;component/Materials/Logo.png" />
             </Grid>
         </Grid>
     </Viewbox>

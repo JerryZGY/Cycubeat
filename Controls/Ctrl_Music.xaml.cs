@@ -31,7 +31,7 @@ namespace Cycubeat.Controls
         private void loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             Music.Source = new Uri("Music/BGM.mp3", UriKind.Relative);
-            Music.Volume = 1;
+            Music.Volume = 2;
             peekTimer.Tick += tick;
         }
 

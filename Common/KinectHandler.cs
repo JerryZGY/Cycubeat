@@ -19,7 +19,7 @@ namespace Cycubeat
         private FrameDescription colorFrameDesc;
         private FrameDescription bodyIndexFrameDescription;
         private WriteableBitmap bodyIndexBitmap;
-        private Body trackingBody;
+        public Body TrackingBody;
         private uint[] bodyIndexPixels;
         private KinectCoreWindow kinectCoreWindow;
         private MultiSourceFrameReader reader;
@@ -49,7 +49,7 @@ namespace Cycubeat
 
         private void pointerMoved(object sender, KinectPointerEventArgs args)
         {
-            if (args.CurrentPoint.Properties.HandType != HandType.RIGHT || trackingBody == null || trackingBody.TrackingId != args.CurrentPoint.Properties.BodyTrackingId)
+            if (args.CurrentPoint.Properties.HandType != HandType.RIGHT || TrackingBody == null || TrackingBody.TrackingId != args.CurrentPoint.Properties.BodyTrackingId)
                 return;
 
             KinectPointerPoint pointer = args.CurrentPoint;
@@ -57,14 +57,14 @@ namespace Cycubeat
             if (pointer.Properties.IsEngaged)
             {
                 var pos = new Point(pointer.Position.X * 1366 - 50, pointer.Position.Y * 768 - 50);
-                var state = (trackingBody.HandRightState == HandState.Open) ? InputState.Open : InputState.Close;
-                var isValid = (trackingBody.Joints[JointType.HandRight].Position.Y > trackingBody.Joints[JointType.SpineMid].Position.Y);
+                var state = (TrackingBody.HandRightState == HandState.Open) ? InputState.Open : InputState.Close;
+                var isValid = (TrackingBody.Joints[JointType.HandRight].Position.Y > TrackingBody.Joints[JointType.SpineMid].Position.Y);
                 var e = new KinectInputArgs(pos, state, isValid);
                 KinectInputEvent(e);
             }
             else
             {
-                trackingBody = null;
+                TrackingBody = null;
             }
         }
 
@@ -72,16 +72,16 @@ namespace Cycubeat
         {
             foreach (var body in bodies)
             {
-                if (trackingBody != null)
+                if (TrackingBody != null)
                 {
-                    if (trackingBody.TrackingId == body.TrackingId)
-                        trackingBody = body;
+                    if (TrackingBody.TrackingId == body.TrackingId)
+                        TrackingBody = body;
                 }
                 else
                 {
                     if (IsHandOverhead(body))
                     {
-                        trackingBody = body;
+                        TrackingBody = body;
                         KinectCoreWindow.SetKinectOnePersonManualEngagement(new BodyHandPair(body.TrackingId, HandType.RIGHT));
                     }
                 }
@@ -107,11 +107,11 @@ namespace Cycubeat
                     trackEngagedPlayersViaHandOverHead();
 
                     var isTrackingBodyValid = false;
-                    if (trackingBody != null)
+                    if (TrackingBody != null)
                     {
                         foreach (var body in bodies)
                         {
-                            if (trackingBody.TrackingId == body.TrackingId)
+                            if (TrackingBody.TrackingId == body.TrackingId)
                             {
                                 isTrackingBodyValid = true;
                                 if (HandEvent != null)

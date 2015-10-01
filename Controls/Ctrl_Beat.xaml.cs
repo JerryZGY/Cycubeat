@@ -108,7 +108,7 @@ namespace Cycubeat.Controls
 
         private void perfectBeatTimer_Tick(object sender, EventArgs e)
         {
-            isPerfect = (perfectTimes >= 2 && perfectTimes <= 4);
+            isPerfect = (perfectTimes >= 2 && perfectTimes <= 3);
             perfectTimes++;
         }
 

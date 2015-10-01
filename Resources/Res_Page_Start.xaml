@@ -188,6 +188,14 @@
                 </EasingDoubleKeyFrame.EasingFunction>
             </EasingDoubleKeyFrame>
         </DoubleAnimationUsingKeyFrames>
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Img_Logo">
+            <EasingDoubleKeyFrame KeyTime="0:0:5" Value="0"/>
+            <EasingDoubleKeyFrame KeyTime="0:0:5.5" Value="1">
+                <EasingDoubleKeyFrame.EasingFunction>
+                    <QuarticEase EasingMode="EaseOut"/>
+                </EasingDoubleKeyFrame.EasingFunction>
+            </EasingDoubleKeyFrame>
+        </DoubleAnimationUsingKeyFrames>
         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Grid_Main">
             <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
             <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1">

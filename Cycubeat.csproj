@@ -242,7 +242,10 @@
     <Resource Include="Materials\Lose.png" />
     <Resource Include="Materials\Normal.png" />
     <Resource Include="Materials\Win.png" />
-    <Content Include="Music\Start.wav" />
+    <Resource Include="Materials\Logo.png" />
+    <Content Include="Music\Start.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Materials\StudentID.png" />
     <Content Include="Music\BGM.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

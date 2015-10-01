@@ -21,8 +21,12 @@ namespace Cycubeat
 
             if (studentData != null)
             {
-                studentData["Score"] = Score;
-                studentData["Times"] = Times;
+                var oldScore = Convert.ToInt32(studentData["Score"]);
+                if (oldScore <= Score)
+                {
+                    studentData["Score"] = Score;
+                    studentData["Times"] = Times;
+                }
             }
             else
             {

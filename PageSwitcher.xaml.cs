@@ -13,6 +13,8 @@ using Newtonsoft.Json.Linq;
 
 namespace Cycubeat
 {
+    public delegate void RefreshDelegate();
+
     public delegate void DifficultyDelegate();
 
     public delegate void BeatDelegate(int score);
